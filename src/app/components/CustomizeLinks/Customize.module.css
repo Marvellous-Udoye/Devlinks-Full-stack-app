@@ -1,3 +1,15 @@
 .customize_ctn {
-    @apply bg-[#fff] p-10
+    @apply bg-[#fff] p-10 flex flex-col gap-10 rounded-[12px] ;
+}
+
+.Links {
+    @apply px-[20px] py-[44px] flex flex-col gap-10 bg-[#FAFAFA] rounded-[12px];
+}
+
+.save_btn {
+    @apply py-[11px] px-[27px] text-[#fff] hover:shadow-custom-focus rounded-[8px] bg-[#633CFF] opacity-25;
+
+    @media (max-width: 500px) {
+        width: 100%;
+    }
 }

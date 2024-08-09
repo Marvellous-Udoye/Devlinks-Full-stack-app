@@ -1,3 +1,9 @@
-.display_ctn{
-    @apply p-[253px] max-w-[560px] bg-[#fff] rounded-[12px]
+.display_ctn_holder {
+  @media (max-width: 800px) {
+    display: none;
+  }
+}
+
+.display_ctn {
+  @apply max-w-[560px] bg-[#fff] rounded-[12px];
 }
