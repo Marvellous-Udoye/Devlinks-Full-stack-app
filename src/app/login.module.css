@@ -1,0 +1,35 @@
+.logincard {
+  @apply flex flex-col items-center justify-center bg-[#FAFAFA];
+
+  @media (max-width: 500px) {
+    padding: 32px;
+  }
+
+  @media (min-width: 501px) {
+    padding: 50px;
+    margin: auto;
+  }
+}
+
+.logincard p:last-child {
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.invalid {
+  border-color: #FF3939;
+}
+
+.invalid-label {
+  color: #FF3939;
+}
+
+.error-message {
+  color: #FF3939;
+  position: absolute;
+  right: 10px;
+}
+
+

@@ -1,113 +1,156 @@
+"use client"
+
 import Image from "next/image";
+import Link from "next/link";
+import styles from './login.module.css';
+import logo from '../../public/images/logo.svg';
+import devlinks from '../../public/images/devlinks.svg';
+import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  type ValidationError = {
+    email?: string;
+    password?: string;
+  };
+
+  const [errors, setErrors] = useState<ValidationError>({});
+  const [hasTriedSubmitting, setHasTriedSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (password.length >= 8) {
+      setErrors((prevErrors) => ({ ...prevErrors, password: undefined }));
+    } else if (password.length > 0 && password.length < 8 && hasTriedSubmitting) {
+      setErrors((prevErrors) => ({ prevErrors, password: 'Enter at least 8 characters' }));
+    }
+  }, [password, hasTriedSubmitting]);
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    if (errors.email) {
+      setErrors((prevErrors) => ({ prevErrors, email: undefined }));
+    }
+  };
+
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+    if (errors.password || hasTriedSubmitting) {
+      setErrors((prevErrors) => ({ prevErrors, password: undefined }));
+      setHasTriedSubmitting(false);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setErrors({});
+    setHasTriedSubmitting(true);
+
+    let valid = true;
+    const newErrors: ValidationError = {};
+
+    if (!email) {
+      valid = false;
+      newErrors.email = "Can't be empty";
+    } else if (!email.endsWith('@gmail.com')) {
+      valid = false;
+      newErrors.email = 'Invalid email';
+    }
+
+    if (password.length < 8) {
+      valid = false;
+      newErrors.password = 'Please check again';
+    }
+    if (password.length > 0 && password.length < 8) {
+      valid = false;
+      newErrors.password = 'Enter at least 8 characters';
+    }
+
+    if (!valid) {
+      setErrors(newErrors);
+    } else {
+      window.location.href = '/HomePage';
+    }
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
+    <div className={styles.logincard}>
+      <div className="flex justify-center gap-1.5 max-mb-[51px]">
         <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          src={logo}
+          alt="Devlinks Logo"
+          width={40}
+          height={40}
+        />
+        <Image
+          src={devlinks}
+          alt="Devlinks"
+          width={135}
+          height={26.25}
         />
       </div>
+      <div className="max-w-[476px] w-full mt-10 flex flex-col gap-10">
+        <div className="flex flex-col gap-2 w-full">
+          <p className="text-[32px] font-[700] leading-[48px]">Login</p>
+          <p className="text-[16px] font-[400] leading-[24px] text-[#737373]">Add your details below to get back into the app</p>
+        </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div className="relative flex flex-col w-full">
+            <label
+              htmlFor="email"
+              className={`font-[400] text-[12px] ${errors.email ? styles['invalid-label'] : ''}`}
+            >
+              Email address
+            </label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+              placeholder="e.g. alex@email.com"
+              className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus ${errors.email ? styles['invalid'] : ''}`}
+            />
+            {errors.email && <p className="absolute right-4 top-11 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.email}</p>}
+          </div>
+          <div className="relative flex flex-col w-full">
+            <label
+              htmlFor="password"
+              className={`font-[400] text-[12px] ${errors.password ? styles['invalid-label'] : ''}`}
+            >
+              Password
+            </label>
+            <input
+              id="password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={handlePasswordChange}
+              placeholder="Enter your password"
+              className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus ${errors.password ? styles['invalid'] : ''}`}
+            />
+            {password && !errors.password && (
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-11 transform -translate-y-1/2 text-[#633CFF] text-[12px] focus:outline-none"
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            )}
+            {errors.password && <p className="absolute right-4 top-11 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.password}</p>}
+          </div>
+          <button
+            type="submit"
+            className="active:shadow-custom-focus active:opacity-50 focus:outline-none cursor-pointer rounded-[8px] bg-[#633CFF] py-[11px] px-[27px] w-full text-[16px] font-[600] text-white"
+          >
+            Login
+          </button>
+        </form>
+        <p className="text-center">Don't have an account? <Link className="text-[#633CFF]" href='/CreateAccPage'>Create account</Link></p>
       </div>
-    </main>
+    </div>
   );
 }

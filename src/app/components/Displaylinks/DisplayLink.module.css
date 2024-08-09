@@ -1,0 +1,3 @@
+.display_ctn{
+    @apply p-[253px] max-w-[560px] bg-[#fff] rounded-[12px]
+}
