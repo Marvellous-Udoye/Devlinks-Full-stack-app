@@ -1,15 +1,50 @@
 .customize_ctn {
-    @apply bg-[#fff] p-10 flex flex-col gap-10 rounded-[12px] ;
+  @apply bg-[#fff] p-10 flex flex-col gap-10 rounded-[12px];
 }
 
-.Links {
-    @apply px-[20px] py-[44px] flex flex-col gap-10 bg-[#FAFAFA] rounded-[12px];
+.custom_head p:nth-child(1) {
+  @media (max-width: 500px) {
+    font-size: 24px;
+  }
+}
+
+
+.links_ctn {
+  @apply px-[20px] py-[44px] flex flex-col gap-10 bg-[#FAFAFA] rounded-[12px];
+}
+
+.empty_links p:nth-child(1) {
+  @media (max-width: 500px) {
+    font-size: 24px;
+  }
 }
 
 .save_btn {
-    @apply py-[11px] px-[27px] text-[#fff] hover:shadow-custom-focus rounded-[8px] bg-[#633CFF] opacity-25;
-
-    @media (max-width: 500px) {
-        width: 100%;
-    }
+  @apply py-[11px] px-[27px] text-[#fff] hover:shadow-custom-focus rounded-[8px] bg-[#633CFF] opacity-25;
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 }
+
+.opacity-100 {
+  opacity: 1; 
+}
+
+.opacity-25 {
+  opacity: 0.25;
+}
+
+
+.links {
+  @apply p-[20px] flex flex-col gap-3 bg-[#FAFAFA] rounded-[12px];
+}
+
+.invalid {
+  border-color: #FF3939;
+}
+
+.invalid-label {
+  color: #FF3939;
+}
+
+

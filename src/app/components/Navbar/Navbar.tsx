@@ -5,8 +5,13 @@ import styles from "./Navbar.module.css";
 import link from "../../../../public/images/ph_link-bold.svg";
 import profile from "../../../../public/images/ph_user-circle-bold.svg";
 import view from "../../../../public/images/ph_eye-bold.svg";
+import { FC } from "react";
 
-export default function Navbar() {
+type NavbarProps = {
+  onNavClick: (component: 'customize' | 'profile') => void
+}
+
+const Navbar: FC<NavbarProps> = ({ onNavClick }) => {
   return (
     <div className="bg-[#FAFAFA] p-6">
       <nav className={styles.navbar}>
@@ -28,6 +33,7 @@ export default function Navbar() {
         </div>
         <div className="flex items-center gap-4">
           <button
+            onClick={() => onNavClick('customize')}
             className={`${styles.link} text-[#633CFF] bg-[#EFEBFF]`}>
             <Image
               src={link}
@@ -38,6 +44,7 @@ export default function Navbar() {
             {<p className={styles.smallScreenForBtn}>Links</p>}
           </button>
           <button
+            onClick={() => onNavClick('profile')}
             className={`${styles.link} hover:text-[#633CFF]`}>
             <Image
               src={profile}
@@ -62,3 +69,5 @@ export default function Navbar() {
     </div>
   );
 }
+
+export default Navbar;

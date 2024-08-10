@@ -110,51 +110,54 @@ export default function createAcc() {
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-            <div className="flex flex-col w-full relative">
+            <div className="flex flex-col w-full relative gap-1">
               <label
                 htmlFor="email"
-                className={`font-[400] text-[12px] ${errors.email ? styles['invalid-label'] : ''}`}>Email address</label>
+                className={`font-[400] text-[12px] ${errors.email ? styles['invalid-label'] : ''}`}>Email address
+              </label>
               <input
                 id="email"
                 type="email"
                 onChange={handleEmailChange}
                 placeholder="e.g. alex@email.com"
-                className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus ${errors.email ? styles['invalid'] : ''}`}
+                className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.email ? styles['invalid'] : ''}`}
               />
-              <p className="absolute right-4 top-11 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.email}</p>
+              <p className="absolute right-4 top-12 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.email}</p>
             </div>
-            <div className="flex flex-col w-full relative">
+            <div className="flex flex-col w-full relative gap-1">
               <label
                 htmlFor="createPassword"
-                className={`font-[400] text-[12px] ${errors.password ? styles['invalid-label'] : ''}`}>Create Password</label>
+                className={`font-[400] text-[12px] ${errors.password ? styles['invalid-label'] : ''}`}>Create Password
+              </label>
               <input
                 id="createPassword"
                 type={showpassword ? "text" : "password"}
                 onChange={handlePasswordChange}
                 placeholder="At least 8 characters"
-                className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus ${errors.password ? styles['invalid'] : ''}`}
+                className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.password ? styles['invalid'] : ''}`}
               />
               {password && !errors.password && (<button
                 type="button"
                 onClick={() => setShowPassword(!showpassword)}
-                className="absolute right-4 top-11 transform -translate-y-1/2 font-[400] text-[12px] text-[#633CFF] focus:outline-none"
+                className="absolute right-4 top-12 transform -translate-y-1/2 font-[400] text-[12px] text-[#633CFF] focus:outline-none"
               >
                 {showpassword ? 'Hide' : 'Show'}
               </button>)}
-              {errors.password && <p className="absolute right-4 top-11 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.password}</p>}
+              {errors.password && <p className="absolute right-4 top-12 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.password}</p>}
             </div>
-            <div className="flex flex-col w-full relative">
+            <div className="flex flex-col w-full relative gap-1">
               <label
                 htmlFor="confirmPassword"
-                className={`font-[400] text-[12px] ${errors.confirmpassword ? styles['invalid-label'] : ''}`}>Confirm Password</label>
+                className={`font-[400] text-[12px] ${errors.confirmpassword ? styles['invalid-label'] : ''}`}>Confirm Password
+              </label>
               <input
                 id="confirmPassword"
                 type={showpassword ? "text" : "password"}
                 onChange={handleConfirmPasswordChange}
                 placeholder="At least 8 characters"
-                className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus ${errors.confirmpassword ? styles['invalid'] : ''}`}
+                className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.confirmpassword ? styles['invalid'] : ''}`}
               />
-              {errors.confirmpassword && <p className="absolute right-4 top-11 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.confirmpassword}</p>}
+              {errors.confirmpassword && <p className="absolute right-4 top-12 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.confirmpassword}</p>}
             </div>
             <p className="text-[#737373] font-[400] text-[12px]">Password must contain at least 8 characters</p>
             <button

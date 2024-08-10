@@ -99,7 +99,7 @@ export default function Login() {
         </div>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-          <div className="relative flex flex-col w-full">
+          <div className="relative flex flex-col w-full gap-1">
             <label
               htmlFor="email"
               className={`font-[400] text-[12px] ${errors.email ? styles['invalid-label'] : ''}`}
@@ -112,11 +112,11 @@ export default function Login() {
               value={email}
               onChange={handleEmailChange}
               placeholder="e.g. alex@email.com"
-              className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus ${errors.email ? styles['invalid'] : ''}`}
+              className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.email ? styles['invalid'] : ''}`}
             />
-            {errors.email && <p className="absolute right-4 top-11 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.email}</p>}
+            {errors.email && <p className="absolute right-4 top-12 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.email}</p>}
           </div>
-          <div className="relative flex flex-col w-full">
+          <div className="relative flex flex-col w-full gap-1">
             <label
               htmlFor="password"
               className={`font-[400] text-[12px] ${errors.password ? styles['invalid-label'] : ''}`}
@@ -129,18 +129,18 @@ export default function Login() {
               value={password}
               onChange={handlePasswordChange}
               placeholder="Enter your password"
-              className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus ${errors.password ? styles['invalid'] : ''}`}
+              className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.password ? styles['invalid'] : ''}`}
             />
             {password && !errors.password && (
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-11 transform -translate-y-1/2 text-[#633CFF] text-[12px] focus:outline-none"
+                className="absolute right-4 top-12 transform -translate-y-1/2 text-[#633CFF] text-[12px] focus:outline-none"
               >
                 {showPassword ? 'Hide' : 'Show'}
               </button>
             )}
-            {errors.password && <p className="absolute right-4 top-11 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.password}</p>}
+            {errors.password && <p className="absolute right-4 top-12 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">{errors.password}</p>}
           </div>
           <button
             type="submit"
