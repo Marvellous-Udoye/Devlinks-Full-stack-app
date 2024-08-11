@@ -1,0 +1,36 @@
+.profile_ctn {
+  @apply bg-[#fff] p-10 flex flex-col gap-10 rounded-[12px];
+}
+
+.profile_head p:nth-child(1) {
+  @media (max-width: 500px) {
+    font-size: 24px;
+  }
+}
+
+.save_btn {
+  @apply py-[11px] px-[27px] text-[#fff] hover:shadow-custom-focus rounded-[8px] bg-[#633CFF];
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+}
+
+.opacity-100 {
+  opacity: 1;
+}
+
+.opacity-25 {
+  opacity: 0.25;
+}
+
+.invalid {
+  border-color: #FF3939;
+}
+
+.profile_picture {
+  @apply flex items-center gap-4 p-[20px] bg-[#FAFAFA] rounded-[12px];
+  @media (max-width: 500px) {
+    display: block;
+  }
+}

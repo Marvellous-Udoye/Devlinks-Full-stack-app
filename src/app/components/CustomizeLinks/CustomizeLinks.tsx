@@ -12,6 +12,7 @@ export default function CustomizeLinks() {
 
   type ValidationError = {
     [key: number]: { platform?: string; url?: string };
+    isSaveButtonActive?: boolean
   };
 
   const handleLinkChange = (index: number, field: string, value: string) => {
