@@ -30,7 +30,59 @@
 
 .profile_picture {
   @apply flex items-center gap-4 p-[20px] bg-[#FAFAFA] rounded-[12px];
+
   @media (max-width: 500px) {
     display: block;
+  }
+}
+
+.profile_details {
+  @apply flex gap-1 justify-between items-center relative;
+  
+  @media (max-width: 700px) {
+    display: block;
+  }
+}
+
+.profile_details {
+  @media (max-width: 700px) and (min-width: 637px) {
+    display: flex;
+  }
+}
+
+.profile_details input {
+  @media (max-width: 700px) {
+    margin-top: 4px;
+  }
+}
+
+.error_message {
+  @media (max-width: 700px) {
+    top: 52px;
+  }
+
+  @media (max-width: 700px) and (min-width: 600px) {
+    top: 30px;
+  }
+}
+
+.upload_image {
+  @apply min-h-[193px] min-w-[193px] rounded-[12px] relative bg-[#EFEBFF];
+
+  @media (max-width: 500px) {
+    margin-top: 16px;
+    margin-bottom: 24px;
+  }
+}
+
+.upload_image_small_screen {
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+}
+
+.file_change_small_screen {
+  @media (max-width: 500px) and (min-width: 400px) {
+    left: 30%;
   }
 }

@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       boxShadow: {
         'custom-focus': '0px 0px 32px 0px rgba(99, 60, 255, 0.25)',
+        'profile-preview': '0px 0px 32px 0px rgba(0, 0, 0, 0.10)',
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

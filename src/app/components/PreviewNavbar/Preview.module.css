@@ -1,0 +1,12 @@
+.preview_navbar {
+  @apply flex justify-between p-6 bg-[#633CFF];
+
+  @media (max-width: 500px) {
+    padding: none;
+  }
+}
+
+.preview_btn {
+  @apply py-[11px] px-[27px] rounded-[8px] border-[1px] border-[#633CFF] text-[16px] font-[600] leading-[24px] transform transition ease-in-out duration-100;
+
+}

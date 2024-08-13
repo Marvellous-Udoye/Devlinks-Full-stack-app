@@ -6,25 +6,51 @@ import phone from "../../../../public/images/Group 273.svg";
 import { useState } from "react";
 
 export default function CustomizeLinks() {
-  const [links, setLinks] = useState<{ id: number; platform: string; url: string }[]>([]);
-  const [errors, setErrors] = useState<ValidationError>({});
-  const [isSaveButtonActive, setIsSaveButtonActive] = useState(false); 
+  type LinkType = {
+    id?: number;
+    platform?: string;
+    url?: string;
+  }[];
 
   type ValidationError = {
-    [key: number]: { platform?: string; url?: string };
-    isSaveButtonActive?: boolean
+    [key: number]: {
+      platform?: string;
+      url?: string;
+    };
+    isSaveButtonActive?: boolean;
+  };
+
+  const [validateCustomLinks, setValidateCustomLinks] = useState<{
+    links: LinkType;
+    errors: ValidationError;
+    isSaveButtonActive: boolean;
+  }>({
+    links: [],
+    errors: {},
+    isSaveButtonActive: false
+  });
+
+  const setLinks = (newLinks: LinkType) => {
+    setValidateCustomLinks((prevState) => ({ ...prevState, links: newLinks }));
+  };
+
+  const setErrors = (newCustomErrors: ValidationError) => {
+    setValidateCustomLinks((prevState) => ({ ...prevState, errors: newCustomErrors }));
+  };
+
+  const setIsSaveButtonActive = (isActive: boolean) => {
+    setValidateCustomLinks((prevState) => ({ ...prevState, isSaveButtonActive: isActive }));
   };
 
   const handleLinkChange = (index: number, field: string, value: string) => {
-    const updatedLinks = [...links];
+    const updatedLinks = [...validateCustomLinks.links];
+    const updatedErrors = { ...validateCustomLinks.errors };
     updatedLinks[index] = { ...updatedLinks[index], [field]: value };
     setLinks(updatedLinks);
 
-    if (errors[index] && errors[index][field as keyof ValidationError[keyof ValidationError]]) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        [index]: { ...prevErrors[index], [field]: undefined },
-      }));
+    if (updatedErrors[index] && updatedErrors[index][field as keyof ValidationError[number]]) {
+      updatedErrors[index] = { ...updatedErrors[index], [field]: undefined };
+      setErrors(updatedErrors);
     }
   };
 
@@ -34,32 +60,38 @@ export default function CustomizeLinks() {
     let valid = true;
     const newErrors: ValidationError = {};
 
-    links.forEach((link, index) => {
+    validateCustomLinks.links.forEach((link, index) => {
+      const errors: { url?: string } = {};
       if (!link.url) {
         valid = false;
-        newErrors[index] = { ...newErrors[index], url: "Can't be empty" };
+        errors.url = "Can't be empty";
       } else if (!link.url.startsWith("https://")) {
         valid = false;
-        newErrors[index] = { ...newErrors[index], url: "Please check the URL" };
+        errors.url = "Please check the URL";
       } else if (!link.url.endsWith(".com")) {
         valid = false;
-        newErrors[index] = { ...newErrors[index], url: "Please check the URL" };
+        errors.url = "Please check the URL";
+      }
+      if (Object.keys(errors).length > 0) {
+        newErrors[index] = errors;
       }
     });
 
     if (!valid) {
       setErrors(newErrors);
+    } else {
+      // Handle successful form submission logic here
     }
   };
 
   const removeLink = (linkId: number) => {
-    setLinks(links.filter((link) => link.id !== linkId));
+    setLinks(validateCustomLinks.links.filter((link) => link.id !== linkId));
   };
 
   const addLink = () => {
-    const newLinkId = links.length > 0 ? links[links.length - 1].id + 1 : 1;
-    setLinks([...links, { id: newLinkId, platform: "", url: "" }]);
-    setIsSaveButtonActive(true); 
+    const newLinkId = validateCustomLinks.links.length > 0 ? (validateCustomLinks.links[validateCustomLinks.links.length - 1].id || 0) + 1 : 1;
+    setLinks([...validateCustomLinks.links, { id: newLinkId, platform: "", url: "" }]);
+    setIsSaveButtonActive(true);
   };
 
   return (
@@ -80,25 +112,25 @@ export default function CustomizeLinks() {
             + Add new link
           </button>
 
-        {links.length === 0 && (
-          <div className={styles.links_ctn}>
-            <Image
-              src={phone}
-              alt="Phone"
-              width={249.53}
-              height={160}
-              className="mx-auto"
-            />
-            <div className={styles.empty_links}>
-              <p className="text-[32px] font-[700] text-center">Let's get you started</p>
-              <p className="text-[16px] font-[400] text-center text-[#737373] max-w-[488px] mx-auto">
-                Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We’re here to help you share your profiles with everyone!
-              </p>
+          {validateCustomLinks.links.length === 0 && (
+            <div className={styles.links_ctn}>
+              <Image
+                src={phone}
+                alt="Phone"
+                width={249.53}
+                height={160}
+                className="mx-auto"
+              />
+              <div className={styles.empty_links}>
+                <p className="text-[32px] font-[700] text-center">Let's get you started</p>
+                <p className="text-[16px] font-[400] text-center text-[#737373] max-w-[488px] mx-auto">
+                  Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We’re here to help you share your profiles with everyone!
+                </p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-          {links.map((link, index) => (
+          {validateCustomLinks.links.map((link, index) => (
             <div className={styles.links} key={link.id}>
               <div className="flex justify-between display-inline-block">
                 <p className="text-[16px] font-[700] text-[#737373] flex gap-2">
@@ -109,7 +141,7 @@ export default function CustomizeLinks() {
                   <span>Link #{index + 1}</span>
                 </p>
                 <button
-                  onClick={() => removeLink(link.id)}
+                  onClick={() => removeLink(link.id!)}
                   className="text-[16px] font-[400] text-[#737373]"
                 >
                   Remove
@@ -141,7 +173,7 @@ export default function CustomizeLinks() {
                 <div className="relative flex flex-col w-full gap-1">
                   <label
                     htmlFor={`link-${link.id}`}
-                    className={`font-[400] text-[12px] text-[#333] ${errors[index]?.url ? styles['invalid-label'] : ''}`}
+                    className={`font-[400] text-[12px] text-[#333] ${validateCustomLinks.errors[index]?.url ? styles['invalid-label'] : ''}`}
                   >
                     Link
                   </label>
@@ -151,11 +183,11 @@ export default function CustomizeLinks() {
                     value={link.url}
                     onChange={(e) => handleLinkChange(index, "url", e.target.value)}
                     placeholder="e.g. https://www.github.com/johnappleseed"
-                    className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors[index]?.url ? styles['invalid'] : ''}`}
+                    className={`rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${validateCustomLinks.errors[index]?.url ? styles['invalid'] : ''}`}
                   />
-                  {errors[index]?.url && (
+                  {validateCustomLinks.errors[index]?.url && (
                     <p className="absolute right-4 top-12 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939]">
-                      {errors[index].url}
+                      {validateCustomLinks.errors[index].url}
                     </p>
                   )}
                 </div>
@@ -166,10 +198,9 @@ export default function CustomizeLinks() {
       </section>
       <section className="py-[24px] px-[40px] flex justify-end border-t-[1px] border-t-[#D9D9D9] bg-[#fff]">
         <button
-          onClick={handleSubmit}
-          id="save"
           type="submit"
-          className={`${styles.save_btn} ${isSaveButtonActive ? styles['opacity-100'] : styles['opacity-25']} transition-opacity duration-300 ${links.length == 0 ? styles['opacity-25'] : ''}`}
+          form="linkForm"
+          className={`${styles.save_btn} ${validateCustomLinks.isSaveButtonActive ? styles['opacity-100'] : styles['opacity-25']} transition-opacity duration-300 ${validateCustomLinks.links.length === 0 ? styles['opacity-25'] : ''}`}
         >
           Save
         </button>

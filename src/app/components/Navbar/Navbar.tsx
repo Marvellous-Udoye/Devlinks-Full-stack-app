@@ -6,6 +6,7 @@ import link from "../../../../public/images/ph_link-bold.svg";
 import profile from "../../../../public/images/ph_user-circle-bold.svg";
 import view from "../../../../public/images/ph_eye-bold.svg";
 import { FC } from "react";
+import Link from "next/link";
 
 type NavbarProps = {
   onNavClick: (component: 'customize' | 'profile') => void
@@ -55,16 +56,18 @@ const Navbar: FC<NavbarProps> = ({ onNavClick }) => {
             {<p className={styles.smallScreenForBtn}>Profile Details</p>}
           </button>
         </div>
-        <button className={styles.preview}>
-          <Image
-            src={view}
-            alt="Preview"
-            width={20}
-            height={20}
-            className={styles.smallScreenForPreview}
-          />
-          {<p className={styles.smallScreenForBtn}>Preview</p>}
-        </button>
+        <Link href='/Preview'>
+          <button className={styles.preview}>
+            <Image
+              src={view}
+              alt="Preview"
+              width={20}
+              height={20}
+              className={styles.smallScreenForPreview}
+            />
+            {<p className={styles.smallScreenForBtn}>Preview</p>}
+          </button>
+        </Link>
       </nav>
     </div>
   );
