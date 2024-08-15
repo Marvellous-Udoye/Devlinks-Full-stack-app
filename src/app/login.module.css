@@ -1,4 +1,4 @@
-.logincard {
+.login_ctn {
   @apply flex flex-col items-center justify-center bg-[#FAFAFA];
 
   @media (max-width: 500px) {
@@ -11,10 +11,23 @@
   }
 }
 
-.logincard p:last-child {
+.login_ctn p:last-child {
   @media (max-width: 500px) {
     display: flex;
     flex-direction: column;
+  }
+}
+
+.login_card {
+  @apply bg-[#fff] rounded-[12px] w-full max-w-[476px];
+
+  @media (max-width: 500px) {
+    padding: 32px;
+  }
+
+  @media (min-width: 501px) {
+    padding: 50px;
+    margin: auto;
   }
 }
 
@@ -26,10 +39,32 @@
   color: #FF3939;
 }
 
-.error-message {
-  color: #FF3939;
-  position: absolute;
-  right: 10px;
+.error_message {
+  @media (min-width: 501px) {
+    position: absolute;
+    right: 1rem;
+    top: 3rem;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 500px) {
+    text-align: right;
+  }
 }
 
+.login_heading {
+  @apply flex flex-col gap-2 w-full;
+}
 
+.login_heading p:nth-child(1) {
+  @media (max-width: 500px) {
+    font-size: 24px;
+  }
+}
+
+.logo {
+  @media (max-width: 500px) {
+    width: 33.33px;
+    height: 33.33px;
+  }
+}

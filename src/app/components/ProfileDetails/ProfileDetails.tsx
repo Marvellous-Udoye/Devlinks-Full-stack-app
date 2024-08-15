@@ -85,7 +85,7 @@ export default function CustomizeLinks() {
   };
 
   return (
-    <div className="w-full bg-[#FAFAFA] px-6 pb-6">
+    <div className={styles.profile_details_component}>
       <section className={styles.profile_ctn}>
         <div className={styles.profile_head}>
           <p className="text-[32px] font-[700] leading-[48px] mb-[8px]">Profile Details</p>
@@ -180,7 +180,7 @@ export default function CustomizeLinks() {
               className={`max-w-[432px] w-full rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.firstName ? styles['invalid'] : ''}`}
             />
             {errors.firstName &&
-              <p className={`${styles.error_message} absolute right-4 top-6 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939] `}>
+              <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>
                 {errors.firstName}
               </p>}
           </div>
@@ -200,7 +200,7 @@ export default function CustomizeLinks() {
               className={`max-w-[432px] w-full rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.lastName ? styles['invalid'] : ''}`}
             />
             {errors.lastName &&
-              <p className={`${styles.error_message} absolute right-4 top-6 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939] `}>
+              <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>
                 {errors.lastName}
               </p>}
           </div>
@@ -220,14 +220,14 @@ export default function CustomizeLinks() {
               className={`max-w-[432px] w-full rounded-[8px] border px-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.email ? styles['invalid'] : ''}`}
             />
             {errors.email &&
-              <p className={`${styles.error_message} absolute right-4 top-6 transform -translate-y-1/2 font-[400] text-[12px] text-[#FF3939] `}>
+              <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>
                 {errors.email}
               </p>}
           </div>
         </form>
 
       </section>
-      <section className="py-[24px] px-[40px] flex justify-end border-t-[1px] border-t-[#D9D9D9] bg-[#fff]">
+      <section className={styles.btn_section}>
         <button
           onClick={handleSubmit}
           id="save"

@@ -2,6 +2,18 @@
   @apply flex justify-center;
 }
 
+.profile_ctn_holder {
+  @apply relative h-[231px] bg-[#633CFF] w-full rounded-br-[12px] rounded-bl-[12px];
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
+
 .profile_preview {
   @apply absolute top-[200px] flex flex-col gap-[56px] rounded-[24px] px-[56px] py-[48px] shadow-profile-preview max-w-[349px] w-full bg-[#fff];
+
+  @media (max-width: 500px) {
+    top: 138px;
+  }
 }

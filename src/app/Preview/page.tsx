@@ -5,6 +5,7 @@ import React from "react";
 export default function PreviewPage() {
 const MemorizedPreview = React.memo(Preview)
 const MemorizedProfilePreview = React.memo(ProfilePreview)
+
   return (
     <nav>
       <MemorizedPreview />

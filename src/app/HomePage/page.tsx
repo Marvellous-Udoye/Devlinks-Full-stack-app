@@ -5,8 +5,13 @@ import Navbar from '../components/Navbar/Navbar';
 import DisplayLink from "../components/Displaylinks/DisplayLink";
 import CustomizeLinks from "../components/CustomizeLinks/CustomizeLinks";
 import ProfileDetails from "../components/ProfileDetails/ProfileDetails";
+import React from "react";
 
 export default function Home() {
+  const MemorizedNavbar = React.memo(Navbar)
+  const MemorizedDisplayLink = React.memo(DisplayLink)
+  const MemorizedProfileDetails = React.memo(ProfileDetails)
+  const MemorizedCustomizeLinks = React.memo(CustomizeLinks)
   const [selectedComponent, setSelectedComponent] = useState<'customize' | 'profile' | null>('customize');
 
   const handleNavClick = (component: 'customize' | 'profile') => {
@@ -15,11 +20,11 @@ export default function Home() {
 
   return (
     <main className="w-full">
-      <Navbar onNavClick={handleNavClick} />
+      <MemorizedNavbar onNavClick={handleNavClick} />
       <section className="flex w-full">
-      <DisplayLink />
-        {selectedComponent === 'customize' && <CustomizeLinks />}
-        {selectedComponent === 'profile' && <ProfileDetails />}
+      <MemorizedDisplayLink />
+        {selectedComponent === 'customize' && <MemorizedCustomizeLinks />}
+        {selectedComponent === 'profile' && <MemorizedProfileDetails />}
       </section>
     </main>
   );

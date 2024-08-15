@@ -1,5 +1,17 @@
+.profile_details_component {
+  @apply w-full bg-[#FAFAFA] px-6 pb-6;
+
+  @media (max-width: 500px) {
+    padding: 0 16px 16px 16px;
+  }
+}
+
 .profile_ctn {
   @apply bg-[#fff] p-10 flex flex-col gap-10 rounded-[12px];
+
+  @media (max-width: 500px) {
+    padding: 24px;
+  }
 }
 
 .profile_head p:nth-child(1) {
@@ -13,6 +25,14 @@
 
   @media (max-width: 500px) {
     width: 100%;
+  }
+}
+
+.btn_section {
+  @apply py-[24px] px-[40px] flex justify-end border-t-[1px] border-t-[#D9D9D9] bg-[#fff];
+
+  @media (max-width: 500px) {
+    padding: 16px;
   }
 }
 
@@ -57,12 +77,23 @@
 }
 
 .error_message {
+  @media (min-width: 501px) {
+    position: absolute;
+    right: 1rem;
+    top: 3rem;
+    transform: translateY(-50%);
+  }
+
   @media (max-width: 700px) {
     top: 52px;
   }
 
   @media (max-width: 700px) and (min-width: 600px) {
     top: 30px;
+  }
+
+  @media (max-width: 500px) {
+    text-align: right;
   }
 }
 

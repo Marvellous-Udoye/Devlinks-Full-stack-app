@@ -8,7 +8,7 @@ import arrow from "../../../../public/images/mdi_arrow-right.svg"
 export default function ProfilePreview() {
   return (
     <div className={styles.profile_preview_ctn}>
-      <div className="relative h-[231px] bg-[#633CFF] w-full rounded-br-[12px] rounded-bl-[12px]"></div>
+      <div className={styles.profile_ctn_holder}></div>
       <div className={styles.profile_preview}>
         <div className="flex flex-col gap-[25px] ">
           <Image
