@@ -26,7 +26,7 @@ export default function Preview() {
   return (
     <nav className={styles.preview_navbar}>
       <div className={styles.preview_navbar_ctn}>
-        <Link href='/HomePage'>
+        <Link href='/Home'>
           <button className={`${styles.preview_btn} hover:bg-[#EFEBFF] text-[#633CFF]`}>
             Back to Editor
           </button>
