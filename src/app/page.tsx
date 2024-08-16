@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import styles from './login.module.css';
-import devlinks from '../../public/images/devlinks.svg';
 import { useEffect, useState } from "react";
 
 export default function Login() {
@@ -155,7 +154,7 @@ export default function Login() {
               Login
             </button>
           </form>
-          <p className="text-center">Don't have an account? <Link className="text-[#633CFF]" href='/CreateAccPage'>Create account</Link></p>
+          <p className="text-center">Don&apos;t have an account? <Link className="text-[#633CFF]" href='/CreateAccPage'>Create account</Link></p>
         </div>
       </div>
     </div>

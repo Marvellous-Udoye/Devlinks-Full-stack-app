@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./Customize.module.css";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Select from "react-select";
 import { StylesConfig } from 'react-select';
 import { useEffect } from "react";
@@ -140,18 +140,18 @@ export default function CustomizeLinks() {
     localStorage.setItem("links", JSON.stringify(links));
   }
 
-  const getLinksFromlocalStorage = () => {
+  const getLinksFromlocalStorage = useCallback(() => {
     const storedLinks = localStorage.getItem("links")
     if (storedLinks) {
       setLinks(JSON.parse(storedLinks))
     } else {
       localStorage.removeItem("links")
     }
-  }
+  }, [])
 
   useEffect(() => {
     getLinksFromlocalStorage();
-  }, []);
+  }, [getLinksFromlocalStorage]);
 
   return (
     <div className={styles.customize_links_component}>
@@ -213,7 +213,7 @@ export default function CustomizeLinks() {
                 <path opacity="0.1" d="M141.495 160.5L141.206 111.594L127.038 108.481L124.502 160.5H141.495Z" fill="#333333" />
               </svg>
               <div className={styles.empty_links}>
-                <p className="text-[32px] font-[700] text-center">Let's get you started</p>
+                <p className="text-[32px] font-[700] text-center">Let&apos;s get you started</p>
                 <p className="text-[16px] font-[400] text-center text-[#737373] max-w-[488px] mx-auto">
                   Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We&apos;re here to help you share your profiles with everyone!
                 </p>
