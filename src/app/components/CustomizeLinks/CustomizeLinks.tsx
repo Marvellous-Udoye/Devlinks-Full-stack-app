@@ -45,6 +45,7 @@ export default function CustomizeLinks() {
 
   const setLinks = (newLinks: LinkType) => {
     setValidateCustomLinks((prevState) => ({ ...prevState, links: newLinks }));
+    saveLinksToLocalStorage(newLinks);
   };
 
   const setErrors = (newCustomErrors: ValidationError) => {
@@ -85,8 +86,8 @@ export default function CustomizeLinks() {
       } else if (!link.url.startsWith("https://")) {
         valid = false;
         errors.url = "Please check the URL";
-      } 
-      
+      }
+
       if (Object.keys(errors).length > 0) {
         newErrors[index] = errors;
       }
@@ -100,15 +101,16 @@ export default function CustomizeLinks() {
     }
   };
 
+  const addLink = () => {
+    const newLinkId = validateCustomLinks.links.length > 0 ? (validateCustomLinks.links[validateCustomLinks.links.length - 1].id || 0) + 1 : 1;
+    const newLinks = [...validateCustomLinks.links, { id: newLinkId, platform: "", url: "" }];
+    setLinks(newLinks);
+    setIsSaveButtonActive(true);
+  };
+
   const removeLink = (linkId: number) => {
     const updatedLinks = validateCustomLinks.links.filter((link) => link.id !== linkId);
     setLinks(updatedLinks);
-  };
-
-  const addLink = () => {
-    const newLinkId = validateCustomLinks.links.length > 0 ? (validateCustomLinks.links[validateCustomLinks.links.length - 1].id || 0) + 1 : 1;
-    setLinks([...validateCustomLinks.links, { id: newLinkId, platform: "", url: "" }]);
-    setIsSaveButtonActive(true);
   };
 
   const customStyles: StylesConfig<OptionType, false> = {
@@ -133,6 +135,23 @@ export default function CustomizeLinks() {
       color: '#333'
     })
   };
+
+  const saveLinksToLocalStorage = (links: LinkType) => {
+    localStorage.setItem("links", JSON.stringify(links));
+  }
+
+  const getLinksFromlocalStorage = () => {
+    const storedLinks = localStorage.getItem("links")
+    if (storedLinks) {
+      setLinks(JSON.parse(storedLinks))
+    } else {
+      localStorage.removeItem("links")
+    }
+  }
+
+  useEffect(() => {
+    getLinksFromlocalStorage();
+  }, []);
 
   return (
     <div className={styles.customize_links_component}>
@@ -196,7 +215,7 @@ export default function CustomizeLinks() {
               <div className={styles.empty_links}>
                 <p className="text-[32px] font-[700] text-center">Let's get you started</p>
                 <p className="text-[16px] font-[400] text-center text-[#737373] max-w-[488px] mx-auto">
-                  Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We’re here to help you share your profiles with everyone!
+                  Use the “Add new link” button to get started. Once you have more than one link, you can reorder and edit them. We&apos;re here to help you share your profiles with everyone!
                 </p>
               </div>
             </div>
