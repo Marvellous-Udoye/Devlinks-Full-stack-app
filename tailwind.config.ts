@@ -22,6 +22,7 @@ const config: Config = {
       'sm': { 'max': '600px' },
       'md': { 'max': '700px' },
       'tb': {'max': '1100px'},
+      'fp': {'min': '600px'},
     }
   },
   plugins: [],

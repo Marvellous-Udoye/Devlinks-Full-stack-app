@@ -80,10 +80,6 @@
     top: 3rem;
     transform: translateY(-50%);
   }
-
-  @media (max-width: 500px) {
-    text-align: right;
-  }
 }
 
 .phone {

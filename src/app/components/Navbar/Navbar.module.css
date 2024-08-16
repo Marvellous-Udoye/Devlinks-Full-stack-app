@@ -33,7 +33,5 @@
 }
 
 .smallScreenForPreview {
-  @media (min-width: 600px) {
-    display: none;
-  }
+  @apply fp:hidden
 }
