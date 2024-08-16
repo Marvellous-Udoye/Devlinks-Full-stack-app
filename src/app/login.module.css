@@ -56,9 +56,12 @@
   @apply flex flex-col gap-2 w-full;
 }
 
-.login_heading p:nth-child(1) {
+.login_text {
+  @apply text-[32px] font-[700] leading-[48px];
+
   @media (max-width: 500px) {
     font-size: 24px;
+    line-height: 36px;
   }
 }
 

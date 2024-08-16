@@ -280,7 +280,7 @@ export default function CustomizeLinks() {
                     classNamePrefix="select"
                   />
                   {validateCustomLinks.errors[index]?.platform && (
-                    <p className="text-right font-[400] text-[12px] text-[#FF3939] mr-4">
+                    <p className={`${styles.error_message} text-right font-[400] text-[12px] text-[#FF3939] mr-4`}>
                       {validateCustomLinks.errors[index].platform}
                     </p>
                   )}
@@ -305,7 +305,7 @@ export default function CustomizeLinks() {
                     className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${validateCustomLinks.errors[index]?.url ? styles['invalid'] : ''}`}
                   />
                   {validateCustomLinks.errors[index]?.url && (
-                    <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>
+                    <p className={`${styles.error_message} text-right font-[400] text-[12px] text-[#FF3939]`}>
                       {validateCustomLinks.errors[index].url}
                     </p>
                   )}

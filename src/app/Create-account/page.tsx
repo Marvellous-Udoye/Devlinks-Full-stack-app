@@ -23,21 +23,18 @@ export default function CreateAcc() {
   }, [password])
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value)
     if (errors.email) {
       setErrors((prevErrors) => ({ prevErrors, email: undefined }))
     }
   }
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value)
     if (errors.password) {
       setErrors((prevErrors) => ({ prevErrors, password: undefined }))
     }
   }
 
   const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setConfirmpassword(e.target.value)
     if (errors.confirmpassword) {
       setErrors((prevErrors) => ({ prevErrors, confirmpassword: undefined }))
     }
@@ -102,7 +99,7 @@ export default function CreateAcc() {
         <div className={styles.login_card}>
           <div className="w-full flex flex-col gap-10">
             <div className={styles.login_heading}>
-              <p className="text-[32px] font-[700] leading-[48px]">Create account</p>
+              <p className={styles.login_text}>Create account</p>
               <p className="text-[16px] font-[400] leading-[24px] text-[#737373]">Let&apos;s get you started sharing your links!</p>
             </div>
 
@@ -118,7 +115,8 @@ export default function CreateAcc() {
                 <input
                   id="email"
                   type="email"
-                  onChange={handleEmailChange}
+                  onChange={(e) => setEmail(e.target.value)}
+                  onFocus={handleEmailChange}
                   placeholder="e.g. alex@email.com"
                   className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.email ? styles['invalid'] : ''}`}
                 />
@@ -136,7 +134,8 @@ export default function CreateAcc() {
                 <input
                   id="createPassword"
                   type={showpassword ? "text" : "password"}
-                  onChange={handlePasswordChange}
+                  onChange={(e) => setPassword(e.target.value)}
+                  onFocus={handlePasswordChange}
                   placeholder="At least 8 characters"
                   className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.password ? styles['invalid'] : ''}`}
                 />
@@ -161,7 +160,8 @@ export default function CreateAcc() {
                 <input
                   id="confirmPassword"
                   type={showpassword ? "text" : "password"}
-                  onChange={handleConfirmPasswordChange}
+                  onChange={(e) => setConfirmpassword(e.target.value)}
+                  onFocus={handleConfirmPasswordChange}
                   placeholder="At least 8 characters"
                   className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.confirmpassword ? styles['invalid'] : ''}`}
                 />

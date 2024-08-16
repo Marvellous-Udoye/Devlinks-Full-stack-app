@@ -26,14 +26,12 @@ export default function Login() {
   }, [password, hasTriedSubmitting]);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
     if (errors.email) {
       setErrors((prevErrors) => ({ prevErrors, email: undefined }));
     }
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
     if (errors.password || hasTriedSubmitting) {
       setErrors((prevErrors) => ({ prevErrors, password: undefined }));
       setHasTriedSubmitting(false);
@@ -93,7 +91,7 @@ export default function Login() {
       <div className={styles.login_card}>
         <div className="w-full flex flex-col gap-10">
           <div className={styles.login_heading}>
-            <p className="text-[32px] font-[700] leading-[48px]">Login</p>
+            <p className={`${styles.login_text}`}>Login</p>
             <p className="text-[16px] font-[400] leading-[24px] text-[#737373]">Add your details below to get back into the app</p>
           </div>
 
@@ -112,7 +110,8 @@ export default function Login() {
                 id="email"
                 type="email"
                 value={email}
-                onChange={handleEmailChange}
+                onChange={(e) => setEmail(e.target.value)}
+                onFocus={handleEmailChange}
                 placeholder="e.g. alex@email.com"
                 className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.email ? styles['invalid'] : ''}`}
               />
@@ -132,7 +131,8 @@ export default function Login() {
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
-                onChange={handlePasswordChange}
+                onChange={(e) => setPassword(e.target.value)}
+                onFocus={handlePasswordChange}
                 placeholder="Enter your password"
                 className={`rounded-[8px] border  pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.password ? styles['invalid'] : ''}`}
               />
