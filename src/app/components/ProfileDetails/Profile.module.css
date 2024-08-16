@@ -80,7 +80,7 @@
   @media (min-width: 501px) {
     position: absolute;
     right: 1rem;
-    top: 3rem;
+    top: 50%;
     transform: translateY(-50%);
   }
 

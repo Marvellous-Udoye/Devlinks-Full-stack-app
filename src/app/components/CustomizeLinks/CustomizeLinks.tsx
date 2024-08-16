@@ -280,7 +280,7 @@ export default function CustomizeLinks() {
                     classNamePrefix="select"
                   />
                   {validateCustomLinks.errors[index]?.platform && (
-                    <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>
+                    <p className="text-right font-[400] text-[12px] text-[#FF3939] mr-4">
                       {validateCustomLinks.errors[index].platform}
                     </p>
                   )}

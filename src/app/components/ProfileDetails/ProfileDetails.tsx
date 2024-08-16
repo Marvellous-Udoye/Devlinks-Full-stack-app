@@ -177,6 +177,7 @@ export default function CustomizeLinks() {
                 {errors.firstName}
               </p>}
           </div>
+
           <div className={styles.profile_details}>
             <label
               htmlFor="lastName"
@@ -197,6 +198,7 @@ export default function CustomizeLinks() {
                 {errors.lastName}
               </p>}
           </div>
+          
           <div className={styles.profile_details}>
             <label
               htmlFor="email"
