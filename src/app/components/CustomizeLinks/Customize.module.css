@@ -62,7 +62,7 @@
 
 
 .links {
-  @apply p-[20px] flex flex-col gap-3 bg-[#FAFAFA] rounded-[12px];
+  @apply flex flex-col gap-3 p-[20px] bg-[#FAFAFA] rounded-[12px];
 }
 
 .invalid {

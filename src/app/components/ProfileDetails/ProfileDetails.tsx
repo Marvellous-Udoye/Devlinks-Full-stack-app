@@ -174,7 +174,8 @@ export default function CustomizeLinks() {
             {errors.firstName &&
               <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>
                 {errors.firstName}
-              </p>}
+              </p>
+            }
           </div>
 
           <div className={styles.profile_details}>
@@ -196,7 +197,8 @@ export default function CustomizeLinks() {
             {errors.lastName &&
               <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>
                 {errors.lastName}
-              </p>}
+              </p>
+            }
           </div>
 
           <div className={styles.profile_details}>
@@ -218,7 +220,8 @@ export default function CustomizeLinks() {
             {errors.email &&
               <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>
                 {errors.email}
-              </p>}
+              </p>
+            }
           </div>
         </form>
 

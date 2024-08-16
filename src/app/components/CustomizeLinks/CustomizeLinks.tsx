@@ -65,7 +65,7 @@ export default function CustomizeLinks() {
     const updatedErrors = { ...validateCustomLinks.errors };
     updatedLinks[index] = { ...updatedLinks[index], [field]: value };
     setLinks(updatedLinks);
-    
+
     if (updatedErrors[index]) {
       updatedErrors[index] = { ...updatedErrors[index], [field]: undefined };
       setErrors(updatedErrors);
@@ -305,9 +305,9 @@ export default function CustomizeLinks() {
                     className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${validateCustomLinks.errors[index]?.url ? styles['invalid'] : ''}`}
                   />
                   {validateCustomLinks.errors[index]?.url && (
-                    <span className={`${styles.error_message} text-right font-[400] text-[12px] text-[#FF3939]`}>
+                    <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>
                       {validateCustomLinks.errors[index].url}
-                    </span>
+                    </p>
                   )}
                 </div>
               </form>

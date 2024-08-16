@@ -18,26 +18,8 @@
   @apply flex gap-2 items-center justify-center py-[11px] px-[27px] rounded-[8px] font-[600];
 }
 
-.devlinks_image, .smallScreenForPreviewBtn {
-  @media (max-width: 600px) {
-    display: none;
-  }
-}
-
-.smallScreenForBtn {
-  @media (max-width: 700px) {
-    display: none;
-  }
-}
-
-.smallScreenForPreview {
-  @media (min-width: 600px) {
-    display: none;
-  }
-}
-
 .smallScreenForLogo {
-  @media (max-width: 600px) {
+  @media (max-width: 500px) {
     margin-right: 20px;
   }
 }
@@ -47,5 +29,11 @@
 
   @media (max-width: 500px) {
     padding: 11px 16px;
+  }
+}
+
+.smallScreenForPreview {
+  @media (min-width: 600px) {
+    display: none;
   }
 }
