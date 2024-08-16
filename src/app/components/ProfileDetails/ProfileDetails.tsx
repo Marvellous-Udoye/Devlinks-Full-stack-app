@@ -155,7 +155,7 @@ export default function CustomizeLinks() {
         </form>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-[20px] bg-[#FAFAFA] rounded-[12px]">
-          <div className={styles.profile_details_first_name}>
+          <div className={styles.profile_details}>
             <label
               htmlFor="firstName"
               className="font-[400] text-[16px] text-[#737373]"
@@ -177,7 +177,7 @@ export default function CustomizeLinks() {
               </p>}
           </div>
 
-          <div className={styles.profile_details_last_name}>
+          <div className={styles.profile_details}>
             <label
               htmlFor="lastName"
               className="font-[400] text-[16px] text-[#737373]"
@@ -199,7 +199,7 @@ export default function CustomizeLinks() {
               </p>}
           </div>
 
-          <div className={styles.profile_details_email}>
+          <div className={styles.profile_details}>
             <label
               htmlFor="email"
               className="font-[400] text-[16px] text-[#737373]"
