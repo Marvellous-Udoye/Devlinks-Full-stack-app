@@ -56,7 +56,7 @@
   }
 }
 
-.profile_details_first_name {
+.profile_details {
   @apply flex gap-1 justify-between items-center relative h-fit min-h-[48px];
   
   @media (max-width: 700px) {
@@ -68,32 +68,14 @@
   }
 }
 
-.profile_details_first_name input {
-  @media (max-width: 700px) {
-    margin-top: 4px;
-  }
-}
-
-.profile_details_last_name {
-  @apply flex gap-1 justify-between items-center relative h-fit min-h-[48px];
-  
-  @media (max-width: 700px) {
-    display: block;
-  }
-
-  @media (max-width: 700px) and (min-width: 600px) {
-    display: flex;
-  }
-}
-
-.profile_details_last_name input {
+.profile_details input {
   @media (max-width: 700px) {
     margin-top: 4px;
   }
 }
 
 .profile_details_email {
-  @apply flex gap-1 justify-between items-center relative h-fit min-h-[48px];
+  @apply flex gap-1 justify-between items-center relative min-h-[48px] w-full;
   
   @media (max-width: 700px) {
     display: block;
@@ -107,6 +89,7 @@
 .profile_details_email input {
   @media (max-width: 700px) {
     margin-top: 4px;
+    margin-right: 0;
   }
 }
 

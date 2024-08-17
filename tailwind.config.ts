@@ -23,6 +23,7 @@ const config: Config = {
       'md': { 'max': '700px' },
       'tb': {'max': '1100px'},
       'fp': {'min': '600px'},
+      'ls': {'min': '501px'},
     }
   },
   plugins: [],

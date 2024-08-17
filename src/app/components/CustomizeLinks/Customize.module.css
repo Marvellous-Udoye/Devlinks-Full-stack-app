@@ -73,15 +73,6 @@
   color: #FF3939;
 }
 
-.error_message {
-  @media (min-width: 501px) {
-    position: absolute;
-    right: 1rem;
-    top: 3rem;
-    transform: translateY(-50%);
-  }
-}
-
 .phone {
   @media (max-width:500px) {
     width: 124.766px;

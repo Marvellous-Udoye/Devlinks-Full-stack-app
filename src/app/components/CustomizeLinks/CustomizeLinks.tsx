@@ -44,7 +44,7 @@ export default function CustomizeLinks() {
     { value: 'Linkedin', label: 'Linkedin', icon: <FaLinkedin /> },
     { value: 'WhatsApp', label: 'WhatsApp', icon: <FaWhatsapp /> },
     { value: 'Figma', label: 'Figma', icon: <FaFigma /> },
-    { value: 'Ffrontend Mentor', label: 'Frontend Mentor', icon: <FaUserAlt /> },
+    { value: 'Frontend Mentor', label: 'Frontend Mentor', icon: <FaUserAlt /> },
   ];
 
   const setLinks = (newLinks: LinkType) => {
@@ -300,12 +300,12 @@ export default function CustomizeLinks() {
                     id={`link-${link.id}`}
                     type="text"
                     value={link.url || ""}
-                    onChange={(e) => handleLinkChange(index, "url", e.target.value)}
+                    onFocus={(e) => handleLinkChange(index, "url", e.target.value)}
                     placeholder="e.g. https://www.github.com/johnappleseed"
                     className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${validateCustomLinks.errors[index]?.url ? styles['invalid'] : ''}`}
                   />
                   {validateCustomLinks.errors[index]?.url && (
-                    <p className={`${styles.error_message} sm:text-right sm:w-full max-h-fit font-[400] text-[12px] text-[#FF3939]`}>
+                    <p className="w-full ls:absolute ls:top-[50%] ls:right-4 text-right h-fit h-[12px] font-[400] text-[12px] text-[#FF3939]">
                       {validateCustomLinks.errors[index].url}
                     </p>
                   )}
