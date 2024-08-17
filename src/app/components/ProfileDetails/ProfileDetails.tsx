@@ -3,22 +3,30 @@
 import Image from "next/image";
 import styles from "./Profile.module.css";
 import { useState, useRef } from "react";
-import image from "../../../../public/images/ph_image.svg";
-import imageChange from "../../../../public/images/ph_image_white.svg";
+import React, { FC } from 'react';
 
-export default function CustomizeLinks() {
+type ValidationError = {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+};
+
+interface ProfileDetailsProps {
+  onSubmit: (data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    selectedImage: string | null;
+  }) => void;
+}
+
+const ProfileDetails: React.FC<ProfileDetailsProps> = ({ onSubmit }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState<ValidationError>({});
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  type ValidationError = {
-    firstName?: string
-    lastName?: string
-    email?: string
-  };
 
   const handleDivClick = () => {
     if (fileInputRef.current) {
@@ -28,56 +36,53 @@ export default function CustomizeLinks() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0]
-      const imageUrl = URL.createObjectURL(file)
-      setSelectedImage(imageUrl)
+      const file = e.target.files[0];
+      const imageUrl = URL.createObjectURL(file);
+      setSelectedImage(imageUrl);
     }
-  }
+  };
 
   const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFirstName(e.target.value);
     if (errors.firstName) {
-      setErrors((prevErrors) => ({ prevErrors, firstName: undefined }))
+      setErrors((prevErrors) => ({ ...prevErrors, firstName: undefined }));
     }
-  }
+  };
 
   const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setLastName(e.target.value);
     if (errors.lastName) {
-      setErrors((prevErrors) => ({ prevErrors, lastName: undefined }))
+      setErrors((prevErrors) => ({ ...prevErrors, lastName: undefined }));
     }
-  }
+  };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
     if (errors.email) {
-      setErrors((prevErrors) => ({ prevErrors, email: undefined }))
+      setErrors((prevErrors) => ({ ...prevErrors, email: undefined }));
     }
-  }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    setErrors({})
-
-    let valid = true;
     const newErrors: ValidationError = {};
 
     if (!firstName) {
-      valid = false
-      newErrors.firstName = "Can't be empty"
+      newErrors.firstName = "Can't be empty";
     }
-
     if (!lastName) {
-      valid = false
-      newErrors.lastName = "Can't be empty"
+      newErrors.lastName = "Can't be empty";
     }
-
     if (email && !email.endsWith('@gmail.com')) {
-      valid = false
-      newErrors.email = "Please check again"
+      newErrors.email = "Please check again";
     }
 
-
-    if (!valid) {
+    if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+    } else {
+      // onSubmit({ firstName, lastName, email, selectedImage });
+      window.location.href = '/Preview'
     }
   };
 
@@ -201,7 +206,7 @@ export default function CustomizeLinks() {
             }
           </div>
 
-          <div className={styles.profile_details_email}>
+          <div className={styles.profile_details}>
             <label
               htmlFor="email"
               className="font-[400] text-[16px] text-[#737373]"
@@ -240,4 +245,5 @@ export default function CustomizeLinks() {
   );
 }
 
+export default ProfileDetails;
 

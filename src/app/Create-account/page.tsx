@@ -73,7 +73,7 @@ export default function CreateAcc() {
     if (!valid) {
       setErrors(newError)
     } else {
-      window.location.href = '/HomePage'
+      window.location.href = '/Home'
     }
 
   }

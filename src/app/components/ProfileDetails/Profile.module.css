@@ -20,22 +20,6 @@
   }
 }
 
-.save_btn {
-  @apply py-[11px] px-[27px] text-[#fff] hover:shadow-custom-focus rounded-[8px] bg-[#633CFF];
-
-  @media (max-width: 500px) {
-    width: 100%;
-  }
-}
-
-.btn_section {
-  @apply py-[24px] px-[40px] flex justify-end border-t-[1px] border-t-[#D9D9D9] bg-[#fff];
-
-  @media (max-width: 500px) {
-    padding: 16px;
-  }
-}
-
 .opacity-100 {
   opacity: 1;
 }
@@ -71,25 +55,6 @@
 .profile_details input {
   @media (max-width: 700px) {
     margin-top: 4px;
-  }
-}
-
-.profile_details_email {
-  @apply flex gap-1 justify-between items-center relative min-h-[48px] w-full;
-  
-  @media (max-width: 700px) {
-    display: block;
-  }
-
-  @media (max-width: 700px) and (min-width: 600px) {
-    display: flex;
-  }
-}
-
-.profile_details_email input {
-  @media (max-width: 700px) {
-    margin-top: 4px;
-    margin-right: 0;
   }
 }
 
@@ -132,5 +97,21 @@
 .file_change_small_screen {
   @media (max-width: 500px) and (min-width: 400px) {
     left: 30%;
+  }
+}
+
+.save_btn {
+  @apply py-[11px] px-[27px] text-[#fff] hover:shadow-custom-focus rounded-[8px] bg-[#633CFF];
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+}
+
+.btn_section {
+  @apply py-[24px] px-[40px] flex justify-end border-t-[1px] border-t-[#D9D9D9] bg-[#fff];
+
+  @media (max-width: 500px) {
+    padding: 16px;
   }
 }
