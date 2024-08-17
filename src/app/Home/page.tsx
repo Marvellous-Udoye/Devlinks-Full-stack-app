@@ -20,7 +20,6 @@ export default function Home() {
   };
 
   const handleProfileSubmit = (formData: any) => {
-    // handle the form submission logic here
     console.log("Profile form submitted with data:", formData);
   };
 
