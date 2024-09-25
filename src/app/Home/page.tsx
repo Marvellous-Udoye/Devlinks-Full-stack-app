@@ -6,8 +6,12 @@ import DisplayLink from "../components/Displaylinks/DisplayLink";
 import CustomizeLinks from "../components/CustomizeLinks/CustomizeLinks";
 import ProfileDetails from "../components/ProfileDetails/ProfileDetails";
 import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/config";
 
 export default function Home() {
+  const user = useAuthState(auth)
+
   const MemorizedNavbar = React.memo(Navbar)
   const MemorizedDisplayLink = React.memo(DisplayLink)
   const MemorizedProfileDetails = React.memo(ProfileDetails)
@@ -34,3 +38,5 @@ export default function Home() {
     </main>
   );
 }
+
+

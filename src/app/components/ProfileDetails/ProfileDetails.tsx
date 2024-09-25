@@ -81,10 +81,17 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ onSubmit }) => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      // onSubmit({ firstName, lastName, email, selectedImage });
+      onSubmit({
+        firstName,
+        lastName,
+        email,
+        selectedImage
+      });
+
       window.location.href = '/Preview'
     }
   };
+
 
   return (
     <div className={styles.profile_details_component}>
@@ -160,7 +167,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ onSubmit }) => {
         </form>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-[20px] bg-[#FAFAFA] rounded-[12px]">
-          <div className={styles.profile_details}>
+          <div className={styles.profile_details_firstname}>
             <label
               htmlFor="firstName"
               className="font-[400] text-[16px] text-[#737373]"
@@ -183,7 +190,7 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ onSubmit }) => {
             }
           </div>
 
-          <div className={styles.profile_details}>
+          <div className={styles.profile_details_lastname}>
             <label
               htmlFor="lastName"
               className="font-[400] text-[16px] text-[#737373]"
