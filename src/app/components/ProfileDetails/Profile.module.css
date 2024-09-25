@@ -58,6 +58,42 @@
   }
 }
 
+.profile_details_firstname {
+  @apply flex gap-1 justify-between items-center relative h-fit min-h-[48px];
+  
+  @media (max-width: 700px) {
+    display: block;
+  }
+
+  @media (max-width: 700px) and (min-width: 600px) {
+    display: flex;
+  }
+}
+
+.profile_details_firstname input {
+  @media (max-width: 700px) {
+    margin-top: 4px;
+  }
+}
+
+.profile_details_lastname {
+  @apply flex gap-1 justify-between items-center relative h-fit min-h-[48px];
+  
+  @media (max-width: 700px) {
+    display: block;
+  }
+
+  @media (max-width: 700px) and (min-width: 600px) {
+    display: flex;
+  }
+}
+
+.profile_details_lastname input {
+  @media (max-width: 700px) {
+    margin-top: 4px;
+  }
+}
+
 .error_message {
   @media (min-width: 501px) {
     position: absolute;
