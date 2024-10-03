@@ -173,7 +173,7 @@ export default function Login() {
               Login
             </button>
           </form>
-          <p className="text-center flex sm:flex-col flex-row justify-center sm:gap-0 gap-1.5">Don&apos;t have an account? <Link className="text-[#633CFF]" href='/Create-account'>Create account</Link></p>
+          <p className="text-center flex sm:flex-col flex-row justify-center sm:gap-0 gap-1.5">Don&apos;t have an account? <Link className="text-[#633CFF]" href='/signup'>Create account</Link></p>
         </div>
       </div>
     </div>
