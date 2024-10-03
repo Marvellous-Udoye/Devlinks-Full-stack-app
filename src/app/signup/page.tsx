@@ -3,10 +3,10 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '../../app/firebase/config'
+import { auth } from '../firebase/config'
 import { signIn } from 'next-auth/react'
 
-export async function CreateAccount(email: string, password: string) {
+const CreateAccount = async (email: string, password: string) => {
   try {
     const result = await signIn('credentials', {
       redirect: false,
