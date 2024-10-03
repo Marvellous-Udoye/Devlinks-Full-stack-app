@@ -1,9 +1,8 @@
 "use client";
 
-import { useCallback, useState, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { FaFigma, FaGithub, FaLinkedin, FaWhatsapp, FaYoutube } from 'react-icons/fa';
 import Select, { components, StylesConfig } from "react-select";
-import { FaGithub, FaYoutube, FaLinkedin, FaWhatsapp, FaFigma, FaUserAlt } from 'react-icons/fa';
-import Link from "next/link";
 
 type ValidationError = {
   [key: number]: {
@@ -157,7 +156,7 @@ export default function CustomizeLinks() {
 
   const saveLinksToLocalStorage = useCallback((links: LinkType) => {
     localStorage.setItem("links", JSON.stringify(links));
-  }, []);
+  }, [setLinks]);
 
   const getLinksFromlocalStorage = useCallback(() => {
     const storedLinks = localStorage.getItem("links");
@@ -234,7 +233,7 @@ export default function CustomizeLinks() {
               <div className="empty_links">
                 <p className="text-[32px] font-[700] text-center sm:text-[24px] sm:whitespace-nowrap">Let&apos;s get you started</p>
                 <p className="text-[16px] font-[400] text-center text-[#737373] max-w-[488px] mx-auto">
-                  Use the "Add new link" button to get started. Once you have more than one link, you can reorder and edit them. We&apos;re here to help you share your profiles with everyone!
+                  Use the &quot;Add new link&quot; button to get started. Once you have more than one link, you can reorder and edit them. We&apos;re here to help you share your profiles with everyone!
                 </p>
               </div>
             </div>
