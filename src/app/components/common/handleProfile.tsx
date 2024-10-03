@@ -1,36 +1,43 @@
-"use client";
+// "use client";
 
-import React, { useState, useEffect } from 'react';
-import ProfileDetails from '../ProfileDetails/ProfileDetails';
-import ProfilePreview from '../ProfilePreview/ProfilePreview';
+// import React, { useState, useEffect } from 'react';
+// import ProfileDetails from '../ProfileDetails/ProfileDetails';
+// import ProfilePreview from '../ProfilePreview/ProfilePreview';
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  selectedImage: string | null;
-}
+// interface FormData {
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   selectedImage: string | null;
+// }
 
-const ProfileContainer: React.FC = () => {
-  const [formData, setFormData] = useState<FormData | null>(null);
-  const [profilePreviewData, setProfilePreviewData] = useState<FormData | null>(null);
+// const ProfileContainer: React.FC = () => {
+//   const [formData, setFormData] = useState<FormData | null>(null);
+//   const [profilePreviewData, setProfilePreviewData] = useState<FormData | null>(null);
 
-  const handleFormSubmit = (data: FormData) => {
-    setFormData(data);
-  };
+//   const handleFormSubmit = (data: FormData) => {
+//     setFormData(data);
+//   };
 
-  useEffect(() => {
-    if (formData) {
-      setProfilePreviewData(formData);
-    }
-  }, [formData]);
+//   useEffect(() => {
+//     if (formData) {
+//       setProfilePreviewData(formData);
+//     }
+//   }, [formData]);
 
-  return (
-    <div>
-      <ProfileDetails onSubmit={handleFormSubmit} />
-      {profilePreviewData && <ProfilePreview profilePreviewData={profilePreviewData} />}
-    </div>
-  );
-};
+//   return (
+//     <div>
+//       <ProfileDetails onSubmit={handleFormSubmit} />
+//       {profilePreviewData &&
+//         <ProfilePreview
+//           firstName={profilePreviewData.firstName}
+//           lastName={profilePreviewData.lastName}
+//           email={profilePreviewData.email}
+//           selectedImage={profilePreviewData.selectedImage}
+//         />
+//       }
+//     </div>
+//   );
+// };
 
-export default ProfileContainer;
+// export default ProfileContainer;

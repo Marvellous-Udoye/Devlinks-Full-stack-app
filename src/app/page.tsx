@@ -1,10 +1,10 @@
 "use client"
 
+import { signIn } from "next-auth/react";
 import Link from "next/link";
-import styles from './login.module.css';
 import { useEffect, useState } from "react";
-import { auth } from '../app/firebase/config';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { auth } from '../app/firebase/config';
 
 export default function Login() {
   const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth)
@@ -25,19 +25,19 @@ export default function Login() {
     if (password.length >= 8) {
       setErrors((prevErrors) => ({ ...prevErrors, password: undefined }));
     } else if (password.length > 0 && password.length < 8 && hasTriedSubmitting) {
-      setErrors((prevErrors) => ({ prevErrors, password: 'Enter at least 8 characters' }));
+      setErrors((prevErrors) => ({ ...prevErrors, password: 'Enter at least 8 characters' }));
     }
   }, [password, hasTriedSubmitting]);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (errors.email) {
-      setErrors((prevErrors) => ({ prevErrors, email: undefined }));
+      setErrors((prevErrors) => ({ ...prevErrors, email: undefined }));
     }
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (errors.password || hasTriedSubmitting) {
-      setErrors((prevErrors) => ({ prevErrors, password: undefined }));
+      setErrors((prevErrors) => ({ ...prevErrors, password: undefined }));
       setHasTriedSubmitting(false);
     }
   };
@@ -45,7 +45,6 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const res = await signInWithEmailAndPassword(email, password)
-      console.log({res})
       setEmail('')
       setPassword('')
       window.location.href = '/Home'
@@ -89,9 +88,9 @@ export default function Login() {
   };
 
   return (
-    <div className={styles.login_ctn}>
-      <div className="flex items-center justify-center gap-1.5 max-mb-[51px] mb-10">
-        <svg className={styles.logo} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 41 40" fill="none">
+    <div className="flex flex-col items-center justify-center sm:bg-white bg-[#FAFAFA] sm:px-0 sm:py-6 p-12">
+      <div className="flex items-center justify-center gap-1.5 mb-10 sm:mb-0">
+        <svg className="sm:w-[33.33px] sm:h-[33.33px]" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 41 40" fill="none">
           <path fillRule="evenodd" clipRule="evenodd" d="M6.5235 34.225C8.96683 36.6666 12.8935 36.6666 20.7502 36.6666C28.6068 36.6666 32.5352 36.6666 34.9752 34.225C37.4168 31.7866 37.4168 27.8566 37.4168 20C37.4168 12.1433 37.4168 8.21498 34.9752 5.77331C32.5368 3.33331 28.6068 3.33331 20.7502 3.33331C12.8935 3.33331 8.96516 3.33331 6.5235 5.77331C4.0835 8.21665 4.0835 12.1433 4.0835 20C4.0835 27.8566 4.0835 31.785 6.5235 34.225ZM16.5835 14.5833C15.5122 14.5833 14.4649 14.901 13.5742 15.4962C12.6834 16.0914 11.9891 16.9373 11.5791 17.9271C11.1692 18.9169 11.0619 20.006 11.2709 21.0567C11.4799 22.1074 11.9958 23.0726 12.7533 23.8301C13.5109 24.5877 14.476 25.1036 15.5268 25.3126C16.5775 25.5216 17.6666 25.4143 18.6564 25.0043C19.6461 24.5944 20.4921 23.9001 21.0873 23.0093C21.6825 22.1186 22.0002 21.0713 22.0002 20C22.0002 19.6685 22.1319 19.3505 22.3663 19.1161C22.6007 18.8817 22.9186 18.75 23.2502 18.75C23.5817 18.75 23.8996 18.8817 24.134 19.1161C24.3685 19.3505 24.5002 19.6685 24.5002 20C24.5002 21.5657 24.0359 23.0964 23.166 24.3982C22.2961 25.7001 21.0597 26.7148 19.6131 27.314C18.1665 27.9132 16.5747 28.07 15.039 27.7645C13.5033 27.4591 12.0927 26.7051 10.9856 25.5979C9.8784 24.4907 9.12441 23.0801 8.81895 21.5444C8.51348 20.0088 8.67026 18.417 9.26945 16.9704C9.86864 15.5238 10.8833 14.2874 12.1852 13.4175C13.4871 12.5476 15.0177 12.0833 16.5835 12.0833C16.915 12.0833 17.233 12.215 17.4674 12.4494C17.7018 12.6838 17.8335 13.0018 17.8335 13.3333C17.8335 13.6648 17.7018 13.9828 17.4674 14.2172C17.233 14.4516 16.915 14.5833 16.5835 14.5833ZM30.3335 20C30.3335 21.4366 29.7628 22.8143 28.747 23.8301C27.7312 24.846 26.3534 25.4166 24.9168 25.4166C24.5853 25.4166 24.2674 25.5483 24.0329 25.7828C23.7985 26.0172 23.6668 26.3351 23.6668 26.6666C23.6668 26.9982 23.7985 27.3161 24.0329 27.5505C24.2674 27.785 24.5853 27.9166 24.9168 27.9166C26.4826 27.9166 28.0132 27.4523 29.3151 26.5824C30.617 25.7126 31.6317 24.4761 32.2309 23.0296C32.8301 21.583 32.9868 19.9912 32.6814 18.4555C32.3759 16.9198 31.6219 15.5092 30.5148 14.4021C29.4076 13.2949 27.997 12.5409 26.4613 12.2354C24.9256 11.93 23.3338 12.0867 21.8873 12.6859C20.4407 13.2851 19.2043 14.2998 18.3344 15.6017C17.4645 16.9036 17.0002 18.4342 17.0002 20C17.0002 20.3315 17.1319 20.6494 17.3663 20.8839C17.6007 21.1183 17.9186 21.25 18.2502 21.25C18.5817 21.25 18.8996 21.1183 19.134 20.8839C19.3685 20.6494 19.5002 20.3315 19.5002 20C19.5002 18.5634 20.0708 17.1856 21.0867 16.1698C22.1025 15.154 23.4802 14.5833 24.9168 14.5833C26.3534 14.5833 27.7312 15.154 28.747 16.1698C29.7628 17.1856 30.3335 18.5634 30.3335 20Z" fill="#633CFF" />
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" width="136" height="27" viewBox="0 0 136 27" fill="none">
@@ -105,18 +104,19 @@ export default function Login() {
           <path d="M127.493 26.5C124.908 26.5 122.853 25.975 121.33 24.925C119.806 23.875 118.975 22.4283 118.836 20.585H123.477C123.592 21.3783 123.984 21.985 124.654 22.405C125.346 22.8017 126.293 23 127.493 23C128.578 23 129.363 22.8483 129.848 22.545C130.356 22.2183 130.61 21.7633 130.61 21.18C130.61 20.7367 130.46 20.3983 130.16 20.165C129.883 19.9083 129.363 19.6983 128.602 19.535L125.762 18.94C123.661 18.4967 122.115 17.8317 121.122 16.945C120.129 16.035 119.633 14.8683 119.633 13.445C119.633 11.7183 120.291 10.3767 121.607 9.42C122.923 8.44 124.758 7.95 127.113 7.95C129.444 7.95 131.302 8.42833 132.688 9.385C134.073 10.3183 134.834 11.625 134.973 13.305H130.333C130.241 12.6983 129.917 12.2433 129.363 11.94C128.809 11.6133 128.024 11.45 127.009 11.45C126.085 11.45 125.393 11.59 124.931 11.87C124.492 12.1267 124.273 12.5 124.273 12.99C124.273 13.41 124.458 13.7483 124.827 14.005C125.196 14.2383 125.808 14.4483 126.662 14.635L129.848 15.3C131.626 15.6733 132.965 16.3733 133.865 17.4C134.788 18.4033 135.25 19.5933 135.25 20.97C135.25 22.72 134.569 24.085 133.207 25.065C131.868 26.0217 129.964 26.5 127.493 26.5Z" fill="#333333" />
         </svg>
       </div>
-      <div className={styles.login_card}>
-        <div className="w-full flex flex-col gap-10">
-          <div className={styles.login_heading}>
-            <p className={`${styles.login_text}`}>Login</p>
+      <div className="bg-[#fff] rounded-[12px] w-full max-w-[476px] sm:p-6 p-10">
+        <div className="w-full flex flex-col sm:gap-6 gap-10">
+          <div className="flex flex-col gap-2 w-full">
+            <p className="login_text text-[32px] font-[700] leading-[48px] sm:text-[24px] sm:leading-[36px]">Login</p>
             <p className="text-[16px] font-[400] leading-[24px] text-[#737373]">Add your details below to get back into the app</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+
+          <form onSubmit={handleSubmit} className="flex flex-col sm:gap-4 gap-6">
             <div className="relative flex flex-col w-full gap-1">
               <label
                 htmlFor="email"
-                className={`font-[400] text-[12px] ${errors.email ? styles['invalid-label'] : ''}`}
+                className={`font-[400] text-[12px] ${errors.email ? 'text-[#FF3939]' : ''}`}
               >
                 Email address
               </label>
@@ -131,14 +131,14 @@ export default function Login() {
                 onFocus={handleEmailChange}
                 placeholder="e.g. alex@email.com"
                 autoComplete="email"
-                className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.email ? styles['invalid'] : ''}`}
+                className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.email ? 'border-[#FF3939]' : ''}`}
               />
-              {errors.email && <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>{errors.email}</p>}
+              {errors.email && <p className="font-[400] text-[12px] text-[#FF3939] sm:absolute sm:right-0 sm:-bottom-1/4 fp:absolute fp:right-4 fp:top-12 fp:transform fp:-translate-y-1/2">{errors.email}</p>}
             </div>
             <div className="relative flex flex-col w-full gap-1">
               <label
                 htmlFor="password"
-                className={`font-[400] text-[12px] ${errors.password ? styles['invalid-label'] : ''}`}
+                className={`font-[400] text-[12px] ${errors.password ? 'text-[#FF3939]' : ''}`}
               >
                 Password
               </label>
@@ -152,7 +152,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 onFocus={handlePasswordChange}
                 placeholder="Enter your password"
-                className={`rounded-[8px] border  pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.password ? styles['invalid'] : ''}`}
+                className={`rounded-[8px] border pl-11 pr-4 py-3 focus:outline-none focus:shadow-custom-focus focus:border-[#633CFF] ${errors.password ? 'border-[#FF3939]' : ''}`}
               />
               {password && !errors.password && (
                 <button
@@ -163,16 +163,17 @@ export default function Login() {
                   {showPassword ? 'Hide' : 'Show'}
                 </button>
               )}
-              {errors.password && <p className={`${styles.error_message} font-[400] text-[12px] text-[#FF3939]`}>{errors.password}</p>}
+              {errors.password && <p className="font-[400] text-[12px] text-[#FF3939] sm:absolute sm:right-0 sm:-bottom-1/4 fp:absolute fp:right-4 fp:top-12 fp:transform fp:-translate-y-1/2">{errors.password}</p>}
             </div>
             <button
+              onClick={() => signIn('credentials', { email, password, redirect: true, callbackUrl: '/Home' })}
               type="submit"
-              className="active:shadow-custom-focus active:opacity-50 focus:outline-none cursor-pointer rounded-[8px] bg-[#633CFF] py-[11px] px-[27px] w-full text-[16px] font-[600] text-white"
+              className="active:shadow-custom-focus active:opacity-50 focus:outline-none cursor-pointer rounded-[8px] bg-[#633CFF] py-[11px] px-[27px] w-full text-[16px] font-[600] text-white sm:mt-4"
             >
               Login
             </button>
           </form>
-          <p className="text-center">Don&apos;t have an account? <Link className="text-[#633CFF]" href='/Create-account'>Create account</Link></p>
+          <p className="text-center flex sm:flex-col flex-row justify-center sm:gap-0 gap-1.5">Don&apos;t have an account? <Link className="text-[#633CFF]" href='/Create-account'>Create account</Link></p>
         </div>
       </div>
     </div>

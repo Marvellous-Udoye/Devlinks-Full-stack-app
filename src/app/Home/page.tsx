@@ -1,16 +1,26 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from '../components/Navbar/Navbar';
 import DisplayLink from "../components/Displaylinks/DisplayLink";
 import CustomizeLinks from "../components/CustomizeLinks/CustomizeLinks";
 import ProfileDetails from "../components/ProfileDetails/ProfileDetails";
 import React from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/config";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
+import { ProfileDataProvider } from "../components/common/profileContext";
+import Modal from "../components/common/successModal";
+
+Home.requireAuth = true
 
 export default function Home() {
-  const user = useAuthState(auth)
+  // const session = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     redirect('/Create-account')
+  //   },
+  // })
 
   const MemorizedNavbar = React.memo(Navbar)
   const MemorizedDisplayLink = React.memo(DisplayLink)
@@ -18,23 +28,38 @@ export default function Home() {
   const MemorizedCustomizeLinks = React.memo(CustomizeLinks)
 
   const [selectedComponent, setSelectedComponent] = useState<'customize' | 'profile' | null>('customize');
+  const [savedProfile, setSavedProfile] = useState(false)
 
   const handleNavClick = (component: 'customize' | 'profile') => {
     setSelectedComponent(component);
   };
 
-  const handleProfileSubmit = (formData: any) => {
-    console.log("Profile form submitted with data:", formData);
-  };
+  useEffect(() => {
+    if (!savedProfile) return;
+
+    const timeoutId = setTimeout(() => {
+      setSavedProfile(false);
+    }, 4000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [savedProfile]);
+
 
   return (
     <main className="w-full">
       <MemorizedNavbar onNavClick={handleNavClick} />
+      {/* <div>{session?.data?.user?.email}</div> */}
+      {/* <button onClick={() => signOut()}>Log out</button> */}
       <section className="flex w-full">
-        <MemorizedDisplayLink />
-        {selectedComponent === 'customize' && <MemorizedCustomizeLinks />}
-        {selectedComponent === 'profile' && <MemorizedProfileDetails onSubmit={handleProfileSubmit} />}
+        <ProfileDataProvider>
+          <MemorizedDisplayLink />
+          {selectedComponent === 'customize' && <MemorizedCustomizeLinks />}
+          {selectedComponent === 'profile' && <MemorizedProfileDetails setSavedProfile={setSavedProfile} />}
+        </ProfileDataProvider>
       </section>
+      {savedProfile && <Modal />}
     </main>
   );
 }
