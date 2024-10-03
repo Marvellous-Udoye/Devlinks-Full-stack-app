@@ -6,7 +6,7 @@ import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { auth } from '../../app/firebase/config'
 import { signIn } from 'next-auth/react'
 
-export async function createAccount(email: string, password: string) {
+export async function CreateAccount(email: string, password: string) {
   try {
     const result = await signIn('credentials', {
       redirect: false,
@@ -64,7 +64,7 @@ export default function CreateAcc() {
       const res = await createUserWithEmailAndPassword(email, password)
       setEmail('')
       setPassword('')
-      await createAccount(email, password)
+      await CreateAccount(email, password)
       // Redirect to home page or dashboard after successful signup and auto login
     } catch (e) {
       console.error(e)
