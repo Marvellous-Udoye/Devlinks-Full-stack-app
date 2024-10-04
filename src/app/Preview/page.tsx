@@ -15,7 +15,7 @@ export default function PreviewPage() {
   // const session = useSession({
   //   required: true,
   //   onUnauthenticated() {
-  //     redirect('/Create-account')
+  //     redirect('/signup')
   //   },
   // })
 

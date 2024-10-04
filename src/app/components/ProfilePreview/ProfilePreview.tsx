@@ -9,7 +9,7 @@ const ProfilePreview = () => {
   const { profileData } = useProfileData()
 
   const PreviewContent = () => (
-    <div className="absolute sm:top-[100px] top-[200px] sm:top-[138px] flex flex-col gap-[56px] rounded-[24px] px-[56px] sm:px-8 py-[48px] sm:py-4 sm:shadow-none shadow-[0px_0px_32px_0px_rgba(0,0,0,0.1)] max-w-[500px] w-full bg-[#fff]">
+    <div className="absolute sm:top-[70px] top-[200px] sm:top-[138px] flex flex-col gap-[56px] rounded-[24px] px-[56px] sm:px-8 py-[48px] sm:py-4 sm:shadow-none shadow-[0px_0px_32px_0px_rgba(0,0,0,0.1)] max-w-[500px] w-full bg-[#fff]">
       <div className="flex flex-col gap-[25px]">
         <Image
           src={profileData.selectedImage || defaultImage}

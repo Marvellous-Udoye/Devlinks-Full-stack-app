@@ -18,7 +18,7 @@ export default function Home() {
   // const session = useSession({
   //   required: true,
   //   onUnauthenticated() {
-  //     redirect('/Create-account')
+  //     redirect('/signup')
   //   },
   // })
 

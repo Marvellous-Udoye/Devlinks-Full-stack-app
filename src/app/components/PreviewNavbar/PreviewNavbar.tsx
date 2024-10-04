@@ -22,7 +22,7 @@ export default function Preview() {
   return (
     <nav className="flex justify-between p-6 bg-[#633CFF] sm:p-0 sm:bg-white">
       <div className="flex items-center justify-between rounded-[12px] pl-6 pr-4 py-4 bg-white w-full">
-        <Link href='/home'>
+        <Link href='/Home'>
           <button className="py-[11px] sm:px-[20px] px-[27px] rounded-[8px] border border-[#633CFF] text-[16px] font-[600] leading-[24px] transform transition ease-in-out duration-100 hover:bg-[#EFEBFF] text-[#633CFF]">
             Back to Editor
           </button>

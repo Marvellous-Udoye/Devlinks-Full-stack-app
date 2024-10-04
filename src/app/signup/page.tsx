@@ -116,7 +116,7 @@ export default function CreateAcc() {
   }
 
   return (
-    <div className="bg-[#FAFAFA] h-screen">
+    <div className="bg-[#FAFAFA] sm:h-[100svh]">
       <div className="flex flex-col items-center justify-center sm:bg-white bg-[#FAFAFA] sm:px-0 sm:py-6 p-12">
         <div className="flex items-center justify-center gap-1.5 mb-10 sm:mb-0">
           <svg className="sm:w-[33.33px] sm:h-[33.33px]" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 41 40" fill="none">
