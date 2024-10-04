@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useState } from "react";
-import Preview from "../components/PreviewNavbar/PreviewNavbar";
-import ProfilePreview from "../components/ProfilePreview/ProfilePreview";
-import ProfileDetails from "../components/ProfileDetails/ProfileDetails";
-import { ProfileDataProvider } from "../components/common/profileContext";
+import Preview from "../common/components/PreviewNavbar";
+import ProfilePreview from "../common/components/ProfilePreview";
+import ProfileDetails from "../common/components/ProfileDetails";
+import { ProfileDataProvider } from "../common/profileContext";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 

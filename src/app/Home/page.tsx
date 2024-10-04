@@ -1,16 +1,16 @@
 "use client"
 
 import { useEffect, useState } from "react";
-import Navbar from '../components/Navbar/Navbar';
-import DisplayLink from "../components/Displaylinks/DisplayLink";
-import CustomizeLinks from "../components/CustomizeLinks/CustomizeLinks";
-import ProfileDetails from "../components/ProfileDetails/ProfileDetails";
+import Navbar from '../common/components/Navbar';
+import DisplayLink from "../common/components/DisplayLink";
+import CustomizeLinks from "../common/components/CustomizeLinks";
+import ProfileDetails from "../common/components/ProfileDetails";
 import React from "react";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { ProfileDataProvider } from "../components/common/profileContext";
-import Modal from "../components/common/successModal";
+import { ProfileDataProvider } from "../common/profileContext";
+import Modal from "../common/components/successModal";
 
 Home.requireAuth = true
 

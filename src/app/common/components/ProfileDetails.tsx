@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
 import React from 'react';
-import { useProfileData } from "../common/profileContext";
+import { useProfileData } from "../profileContext";
 
 type ValidationError = {
   firstName?: string;

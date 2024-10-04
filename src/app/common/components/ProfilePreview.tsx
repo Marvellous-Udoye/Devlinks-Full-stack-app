@@ -3,7 +3,7 @@
 import Image from "next/image";
 import arrow from "../../../../public/images/mdi_arrow-right.svg";
 import defaultImage from "../../../../public/images/logo.svg";
-import { useProfileData } from "../common/profileContext";
+import { useProfileData } from "../profileContext";
 
 const ProfilePreview = () => {
   const { profileData } = useProfileData()
