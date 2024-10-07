@@ -12,12 +12,12 @@ export default function PreviewPage() {
   const MemorizedPreview = React.memo(Preview);
   const MemorizedProfilePreview = React.memo(ProfilePreview);
 
-  // const session = useSession({
-  //   required: true,
-  //   onUnauthenticated() {
-  //     redirect('/signup')
-  //   },
-  // })
+  const session = useSession({
+    required: true,
+    onUnauthenticated() {
+      redirect('/signup')
+    },
+  })
 
   return (
     <nav>
