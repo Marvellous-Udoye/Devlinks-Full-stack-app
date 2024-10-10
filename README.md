@@ -7,13 +7,13 @@ Devlinks is a web application designed to simplify the process of customizing li
 * **Database Integration:** Stores user data and link customizations.
 
 # Usage
-1. Access the application in your web browser at `http://localhost:3000` (or the specified port).
+1. Access the application at https://devlinks-full-stack-app.vercel.app/
 2. Create an account or log in with existing credentials.
 3. Generate custom links for your social media platforms using the provided interface.
 
 # Technologies
-* **Frontend:** Next.js, Tailwind CSS and Typescript
-* **Database:** Firebase, Supabase
+* **Frontend:** Next.js, Tailwind CSS, Typescript and Redux
+* **Database:** Firebase
 * **Authentication:** NextAuth 
 
 
