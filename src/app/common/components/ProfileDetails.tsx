@@ -1,9 +1,9 @@
 "use client";
 
+import { submitProfile } from "@/app/redux/action";
 import Image from "next/image";
-import { useState, useRef } from "react";
-import React from 'react';
-import { useProfileData } from "../profileContext";
+import React, { useRef, useState } from 'react';
+import { useDispatch } from "react-redux";
 
 type ValidationError = {
   firstName?: string;
@@ -16,17 +16,18 @@ interface ProfileDetailsProps {
   lastName?: string;
   email?: string;
   selectedImage?: string | null;
+  savedProfile: boolean;
   setSavedProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ProfileDetails: React.FC<ProfileDetailsProps> = ({ setSavedProfile }) => {
+const ProfileDetails: React.FC<ProfileDetailsProps> = ({ savedProfile, setSavedProfile }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [errors, setErrors] = useState<ValidationError>({});
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { setProfileData } = useProfileData();
+  const dispatch = useDispatch()
 
   const handleDivClick = () => {
     if (fileInputRef.current) {
@@ -81,13 +82,8 @@ const ProfileDetails: React.FC<ProfileDetailsProps> = ({ setSavedProfile }) => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      setProfileData({
-        firstName,
-        lastName,
-        email,
-        selectedImage
-      });
-      setSavedProfile(true)
+      dispatch(submitProfile(firstName, lastName, email, selectedImage ?? ""));
+      setSavedProfile(savedProfile)
     }
   };
 

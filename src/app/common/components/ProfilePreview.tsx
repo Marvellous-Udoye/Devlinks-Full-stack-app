@@ -1,12 +1,13 @@
-"use client"
+"use client";
 
+import { RootState } from "@/app/redux/store";
 import Image from "next/image";
-import arrow from "../../../../public/images/mdi_arrow-right.svg";
+import { useSelector } from "react-redux";
 import defaultImage from "../../../../public/images/logo.svg";
-import { useProfileData } from "../profileContext";
+import arrow from "../../../../public/images/mdi_arrow-right.svg";
 
 const ProfilePreview = () => {
-  const { profileData } = useProfileData()
+  const profileData = useSelector((state: RootState) => state.profile);
 
   const PreviewContent = () => (
     <div className="absolute sm:top-[90px] top-[200px] sm:top-[138px] flex flex-col sm:gap-10 gap-[56px] rounded-[24px] px-[56px] sm:px-8 py-[48px] sm:py-4 sm:shadow-none shadow-[0px_0px_32px_0px_rgba(0,0,0,0.1)] max-w-[500px] w-full bg-[#fff]">

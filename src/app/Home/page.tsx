@@ -9,18 +9,17 @@ import React from "react";
 import { signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
-import { ProfileDataProvider } from "../common/profileContext";
 import Modal from "../common/components/successModal";
 
 Home.requireAuth = true
 
 export default function Home() {
-  const session = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect('/signup')
-    },
-  })
+  // const session = useSession({
+  //   required: true,
+  //   onUnauthenticated() {
+  //     redirect('/signup')
+  //   },
+  // })
 
   const MemorizedNavbar = React.memo(Navbar)
   const MemorizedDisplayLink = React.memo(DisplayLink)
@@ -33,6 +32,10 @@ export default function Home() {
   const handleNavClick = (component: 'customize' | 'profile') => {
     setSelectedComponent(component);
   };
+
+  const handleSavedProfile = () => {
+    setSavedProfile(true)
+  }
 
   useEffect(() => {
     if (!savedProfile) return;
@@ -50,14 +53,12 @@ export default function Home() {
   return (
     <main className="w-full">
       <MemorizedNavbar onNavClick={handleNavClick} />
-      <div>{session?.data?.user?.email}</div>
-      <button onClick={() => signOut()}>Log out</button>
+      {/* <div>{session?.data?.user?.email}</div>
+      <button onClick={() => signOut()}>Log out</button> */}
       <section className="flex w-full">
-        <ProfileDataProvider>
-          <MemorizedDisplayLink />
-          {selectedComponent === 'customize' && <MemorizedCustomizeLinks />}
-          {selectedComponent === 'profile' && <MemorizedProfileDetails setSavedProfile={setSavedProfile} />}
-        </ProfileDataProvider>
+        <MemorizedDisplayLink />
+        {selectedComponent === 'customize' && <MemorizedCustomizeLinks />}
+        {selectedComponent === 'profile' && <MemorizedProfileDetails savedProfile={savedProfile} setSavedProfile={handleSavedProfile} />}
       </section>
       {savedProfile && <Modal />}
     </main>
