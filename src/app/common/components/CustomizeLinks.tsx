@@ -2,7 +2,7 @@
 
 import { submitLink, removeLink } from "@/app/redux/action";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { FaFigma, FaGithub, FaLinkedin, FaWhatsapp, FaYoutube } from 'react-icons/fa';
+import { FaFigma, FaGithub, FaLinkedin, FaPortrait, FaWhatsapp, FaYoutube } from 'react-icons/fa';
 import { useDispatch } from "react-redux";
 import Select, { components, StylesConfig } from "react-select";
 
@@ -41,7 +41,9 @@ export default function CustomizeLinks() {
     { value: 'Youtube', label: 'Youtube', icon: <FaYoutube /> },
     { value: 'Linkedin', label: 'Linkedin', icon: <FaLinkedin /> },
     { value: 'WhatsApp', label: 'WhatsApp', icon: <FaWhatsapp /> },
+    { value: 'Portfolio', label: 'Portfolio', icon: <FaPortrait /> },
     { value: 'Figma', label: 'Figma', icon: <FaFigma /> },
+
   ];
 
   const setLinks = useCallback((newLinks: LinkType) => {
@@ -99,9 +101,9 @@ export default function CustomizeLinks() {
     } else {
       validateCustomLinks.links.forEach((link) => {
         const option = options.find(opt => opt.value === link.platform);
-        const icon = option?.icon ?? <></>; // Fallback for icon
-        const platform = link.platform || ""; // Fallback for platform
-        const url = link.url || ""; // Fallback for url
+        const icon = option?.icon ?? <></>; 
+        const platform = link.platform || ""; 
+        const url = link.url || ""; 
 
         dispatch(submitLink(icon, platform, url));
       });
