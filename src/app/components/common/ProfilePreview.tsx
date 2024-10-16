@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import defaultImage from "../../../../public/images/logo.svg";
 import arrow from "../../../../public/images/mdi_arrow-right.svg";
 import { FaGithub, FaLink } from "react-icons/fa";
+import Link from "next/link";
 
 const ProfilePreview = () => {
   const profileData = useSelector((state: RootState) => state.profile);
@@ -64,20 +65,22 @@ const ProfilePreview = () => {
           <>
             {links.map((link) => (
               <div key={link.id}>
-                <div className={`flex justify-between p-4 w-full text-[#fff] rounded-[12px] cursor-pointer ${getLinkBackgroundColor(link.platform)}`}>
-                  <div className="flex gap-4 items-center">
-                    <div className="flex items-center">
-                      {link.icon}
+                <Link href={link.url}>
+                  <div className={`flex justify-between p-4 w-full text-[#fff] rounded-[12px] cursor-pointer ${getLinkBackgroundColor(link.platform)}`}>
+                    <div className="flex gap-4 items-center">
+                      <div className="flex items-center">
+                        {link.icon}
+                      </div>
+                      {link.platform}
                     </div>
-                    {link.platform}
+                    <Image
+                      src={arrow}
+                      alt="Arrow"
+                      width={16}
+                      height={16}
+                    />
                   </div>
-                  <Image
-                    src={arrow}
-                    alt="Arrow"
-                    width={16}
-                    height={16}
-                  />
-                </div>
+                </Link>
               </div>
             ))}
           </>
