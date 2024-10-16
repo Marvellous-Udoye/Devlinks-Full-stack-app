@@ -19,9 +19,10 @@ export default function PreviewPage() {
   // })
 
   return (
-    <nav>
+    <div>
       <MemorizedPreview />
       <MemorizedProfilePreview />
-    </nav>
+      <div className="h-[500px]"></div>
+    </div>
   );
 }

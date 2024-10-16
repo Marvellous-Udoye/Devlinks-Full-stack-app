@@ -1,7 +1,9 @@
 "use client";
 
+import { submitLink, removeLink } from "@/app/redux/action";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaFigma, FaGithub, FaLinkedin, FaWhatsapp, FaYoutube } from 'react-icons/fa';
+import { useDispatch } from "react-redux";
 import Select, { components, StylesConfig } from "react-select";
 
 type ValidationError = {
@@ -33,7 +35,7 @@ export default function CustomizeLinks() {
     errors: {},
     isSaveButtonActive: false
   });
-
+  const dispatch = useDispatch();
   const options: OptionType[] = [
     { value: 'Github', label: 'Github', icon: <FaGithub /> },
     { value: 'Youtube', label: 'Youtube', icon: <FaYoutube /> },
@@ -95,7 +97,15 @@ export default function CustomizeLinks() {
     if (!valid) {
       setErrors(newErrors);
     } else {
-      // Handle successful submission
+      validateCustomLinks.links.forEach((link) => {
+        const option = options.find(opt => opt.value === link.platform);
+        const icon = option?.icon ?? <></>; // Fallback for icon
+        const platform = link.platform || ""; // Fallback for platform
+        const url = link.url || ""; // Fallback for url
+
+        dispatch(submitLink(icon, platform, url));
+      });
+
     }
   };
 

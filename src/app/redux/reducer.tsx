@@ -7,7 +7,7 @@ interface ProfileProps {
   firstName: string;
   lastName: string;
   email: string;
-  selectedImage: string | null; // Allow null here
+  selectedImage: string | null;
 }
 
 interface ProfileActionProps {
@@ -19,15 +19,15 @@ interface ProfileActionProps {
 }
 
 let lastId = 0;
-const initialState: ProfileProps = {
-  id: ++lastId, // Add id to initial state
+const initialProfileState: ProfileProps = {
+  id: ++lastId,
   firstName: "",
   lastName: "",
   email: "",
-  selectedImage: null, // Set to null initially
+  selectedImage: null,
 };
 
-function profileReducer(state = initialState, action: ProfileActionProps) {
+function profileReducer(state = initialProfileState, action: ProfileActionProps) {
   switch (action.type) {
     case actions.PROFILE_SUBMITTED:
       return {
@@ -46,42 +46,68 @@ function profileReducer(state = initialState, action: ProfileActionProps) {
 // Link Reducer
 interface LinkProps {
   id: number;
+  icon: React.ReactNode;
   platform: string;
   url: string;
 }
 
 interface LinkActionProps {
   type: string;
-  link: {
-    id: number;
-    platform: string;
-    url: string;
-  }
+  payload: {
+    id?: number;
+    icon?: React.ReactNode;
+    platform?: string;
+    url?: string;
+  };
 }
 
-function linkReducer(state: LinkProps[] = [], action: LinkActionProps) {
+interface LinkState {
+  links: LinkProps[];
+}
+
+const initialLinkState: LinkState = {
+  links: []
+};
+
+function linkReducer(state = initialLinkState, action: LinkActionProps) {
   switch (action.type) {
     case actions.LINK_SUBMITTED:
-      return [
+      // Ensure action.payload is not undefined before accessing properties
+      if (!action.payload) {
+        console.error('No payload provided for LINK_SUBMITTED action.');
+        return state;
+      }
+
+      return {
         ...state,
-        {
-          id: ++lastId,
-          platform: action.link.platform,
-          url: action.link.url,
-        },
-      ];
+        links: [
+          ...state.links,
+          {
+            id: ++lastId,
+            icon: action.payload.icon || <></>, // fallback to empty fragment
+            platform: action.payload.platform || "", // fallback to empty string
+            url: action.payload.url || "", // fallback to empty string
+          },
+        ],
+      };
 
     case actions.LINK_REMOVED:
-      return state.filter((link) => link.id !== action.link.id);
+      return {
+        ...state,
+        links: state.links.filter((link) => link.id !== action.payload?.id), // Ensure payload exists
+      };
 
     default:
       return state;
   }
 }
 
-const reducer = combineReducers({
-    profile: profileReducer,
-    links: linkReducer,
-  })
 
-export default reducer;
+const rootReducer = combineReducers({
+  profile: profileReducer,
+  links: linkReducer,
+});
+
+export type RootState = ReturnType<typeof rootReducer>;
+
+export default rootReducer;
