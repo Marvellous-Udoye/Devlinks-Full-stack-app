@@ -25,7 +25,12 @@ type OptionType = {
   icon: JSX.Element;
 };
 
-export default function CustomizeLinks() {
+interface CustomizeLinksProps {
+  savedProfile: boolean;
+  setSavedProfile: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function CustomizeLinks({ savedProfile, setSavedProfile }: CustomizeLinksProps) {
   const [validateCustomLinks, setValidateCustomLinks] = useState<{
     links: LinkType;
     errors: ValidationError;
@@ -101,13 +106,13 @@ export default function CustomizeLinks() {
     } else {
       validateCustomLinks.links.forEach((link) => {
         const option = options.find(opt => opt.value === link.platform);
-        const icon = option?.icon ?? <></>; 
-        const platform = link.platform || ""; 
-        const url = link.url || ""; 
+        const icon = option?.icon ?? <></>;
+        const platform = link.platform || "";
+        const url = link.url || "";
 
         dispatch(submitLink(icon, platform, url));
       });
-
+      setSavedProfile(savedProfile)
     }
   };
 

@@ -57,7 +57,7 @@ export default function Home() {
       <button onClick={() => signOut()}>Log out</button> */}
       <section className="flex w-full">
         <MemorizedDisplayLink />
-        {selectedComponent === 'customize' && <MemorizedCustomizeLinks />}
+        {selectedComponent === 'customize' && <MemorizedCustomizeLinks savedProfile={savedProfile} setSavedProfile={handleSavedProfile} />}
         {selectedComponent === 'profile' && <MemorizedProfileDetails savedProfile={savedProfile} setSavedProfile={handleSavedProfile} />}
       </section>
       {savedProfile && <Modal />}
