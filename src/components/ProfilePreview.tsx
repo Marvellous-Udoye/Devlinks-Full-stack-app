@@ -1,12 +1,12 @@
 "use client";
 
-import { RootState } from "@/app/redux/store";
+import { RootState } from "@/redux/store";
 import Image from "next/image";
-import { useSelector } from "react-redux";
-import defaultImage from "../../../../public/images/logo.svg";
-import arrow from "../../../../public/images/mdi_arrow-right.svg";
-import { FaGithub, FaLink } from "react-icons/fa";
 import Link from "next/link";
+import { FaLink } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import defaultImage from "../../public/images/logo.svg";
+import arrow from "../../public/images/mdi_arrow-right.svg";
 
 const ProfilePreview = () => {
   const profileData = useSelector((state: RootState) => state.profile);

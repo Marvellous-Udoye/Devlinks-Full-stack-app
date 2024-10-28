@@ -1,25 +1,35 @@
 "use client"
 
-import { signIn } from "next-auth/react";
+import Loader from '@/components/common/loader';
+import Modal from '@/components/common/modal';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '../app/firebase/config';
+import { auth, firestore } from "./../firebase/config";
+import { doc, getDoc } from 'firebase/firestore';
+import { setDoc } from 'firebase/firestore/lite';
 
 export default function Login() {
-  const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth)
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-
   type ValidationError = {
     email?: string;
     password?: string;
   };
-
-  const [errors, setErrors] = useState<ValidationError>({});
-  const [hasTriedSubmitting, setHasTriedSubmitting] = useState(false);
+  type ModalMessage = {
+    show: boolean;
+    message: string;
+  }
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+  const [errors, setErrors] = useState<ValidationError>({})
+  const [loading, setLoading] = useState(false)
+  const [hasTriedSubmitting, setHasTriedSubmitting] = useState(false)
+  const [accountInfo, setAccountInfo] = useState<ModalMessage>({
+    show: false,
+    message: ''
+  })
+  const router = useRouter()
 
   useEffect(() => {
     if (password.length >= 8) {
@@ -29,13 +39,13 @@ export default function Login() {
     }
   }, [password, hasTriedSubmitting]);
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = () => {
     if (errors.email) {
       setErrors((prevErrors) => ({ ...prevErrors, email: undefined }));
     }
   };
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = () => {
     if (errors.password || hasTriedSubmitting) {
       setErrors((prevErrors) => ({ ...prevErrors, password: undefined }));
       setHasTriedSubmitting(false);
@@ -43,16 +53,71 @@ export default function Login() {
   };
 
   const handleLogin = async () => {
+    setLoading(true)
     try {
-      const res = await signInWithEmailAndPassword(email, password)
-      setEmail('')
-      setPassword('')
-      window.location.href = '/Home'
-    } catch (e) {
-      console.error(e)
+      const userCredential = await signInWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user
+
+      if (user.emailVerified) {
+        const registrationData = localStorage.getItem("userCredentials")
+        const {
+          email = "",
+          password = "",
+        } = registrationData ? JSON.parse(registrationData) : {}
+
+        const userDoc = await getDoc(doc(firestore, "users", user.uid))
+        if (!userDoc.exists()) {
+          await setDoc(doc(firestore, "users", user.uid), {
+            email, password
+          })
+        }
+
+        setEmail('')
+        setPassword('')
+        router.push('/Home')
+      } else {
+        setAccountInfo({
+          show: true,
+          message: "Email has not been verified"
+        })
+      }
+    } catch (e: any) {
+      if (e.code === 'auth/wrong-password') {
+        setAccountInfo({
+          show: true,
+          message: "Incorrect password"
+        });
+      } else if (e.code === 'auth/user-not-found') {
+        setAccountInfo({
+          show: true,
+          message: "User not found"
+        });
+      } else {
+        setAccountInfo({
+          show: true,
+          message: "Login failed! Confirm email and password"
+        });
+      }
       Response.json({ error: 'Internal Server Error' }, { status: 500 })
+    } finally {
+      setLoading(false)
     }
   }
+
+  useEffect(() => {
+    if (!accountInfo.show) return;
+
+    const timeoutId = setTimeout(() => {
+      setAccountInfo({
+        show: false,
+        message: ''
+      });
+    }, 4000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [accountInfo.show]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,9 +148,12 @@ export default function Login() {
     if (!valid) {
       setErrors(newErrors);
     } else {
-      handleLogin()
+      router.push('/Home')
+      // handleLogin()
     }
   };
+
+  if (loading) return <Loader />
 
   return (
     <div className="flex flex-col items-center justify-center sm:bg-white bg-[#FAFAFA] sm:px-0 sm:py-8 p-12">
@@ -166,14 +234,21 @@ export default function Login() {
               {errors.password && <p className="font-[400] text-[12px] text-[#FF3939] sm:absolute sm:right-0 sm:-bottom-1/4 fp:absolute fp:right-4 fp:top-12 fp:transform fp:-translate-y-1/2">{errors.password}</p>}
             </div>
             <button
-              onClick={() => signIn('credentials', { email, password, redirect: true, callbackUrl: '/Home' })}
               type="submit"
+              disabled={loading}
               className="active:shadow-custom-focus active:opacity-50 focus:outline-none cursor-pointer rounded-[8px] bg-[#633CFF] py-[11px] px-[27px] w-full text-[16px] font-[600] text-white sm:mt-4"
             >
               Login
             </button>
           </form>
           <p className="text-center flex sm:flex-col flex-row justify-center sm:gap-0 gap-1.5">Don&apos;t have an account? <Link className="text-[#633CFF]" href='/signup'>Create account</Link></p>
+
+          {accountInfo.show && <Modal>
+            <div className="flex">
+              <p className="sm:text-[12px] sm:text-center text-base">{accountInfo.message}</p>
+            </div>
+          </Modal>}
+
         </div>
       </div>
     </div>

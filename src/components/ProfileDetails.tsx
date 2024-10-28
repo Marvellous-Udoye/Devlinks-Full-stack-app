@@ -1,6 +1,6 @@
 "use client";
 
-import { submitProfile } from "@/app/redux/action";
+import { submitProfile } from "@/redux/action";
 import Image from "next/image";
 import React, { useRef, useState } from 'react';
 import { useDispatch } from "react-redux";

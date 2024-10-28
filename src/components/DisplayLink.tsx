@@ -1,7 +1,7 @@
-import { RootState } from "@/app/redux/store";
+import { RootState } from "@/redux/store";
 import Image from "next/image";
 import { useSelector } from "react-redux";
-import arrow from "../../../../public/images/mdi_arrow-right.svg";
+import arrow from "../../public/images/mdi_arrow-right.svg";
 
 export default function DisplayLink() {
   const profile = useSelector((state: RootState) => state.profile);

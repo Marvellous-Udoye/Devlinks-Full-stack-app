@@ -1,10 +1,10 @@
 "use client";
 
-import { submitLink, removeLink } from "@/app/redux/action";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { FaFigma, FaGithub, FaLinkedin, FaPortrait, FaWhatsapp, FaYoutube } from 'react-icons/fa';
 import { useDispatch } from "react-redux";
 import Select, { components, StylesConfig } from "react-select";
+import { submitLink } from "../redux/action";
 
 type ValidationError = {
   [key: number]: {
@@ -53,7 +53,7 @@ export default function CustomizeLinks({ savedProfile, setSavedProfile }: Custom
 
   const setLinks = useCallback((newLinks: LinkType) => {
     setValidateCustomLinks((prevState) => ({ ...prevState, links: newLinks }));
-    saveLinksToLocalStorage(newLinks);
+    // saveLinksToLocalStorage(newLinks);
   }, []);
 
   const setErrors = useCallback((newCustomErrors: ValidationError) => {
@@ -171,22 +171,22 @@ export default function CustomizeLinks({ savedProfile, setSavedProfile }: Custom
     );
   }, []);
 
-  const saveLinksToLocalStorage = useCallback((links: LinkType) => {
-    localStorage.setItem("links", JSON.stringify(links));
-  }, [setLinks]);
+  // const saveLinksToLocalStorage = useCallback((links: LinkType) => {
+  //   localStorage.setItem("links", JSON.stringify(links));
+  // }, [setLinks]);
 
-  const getLinksFromlocalStorage = useCallback(() => {
-    const storedLinks = localStorage.getItem("links");
-    if (storedLinks) {
-      setLinks(JSON.parse(storedLinks));
-    } else {
-      localStorage.removeItem("links");
-    }
-  }, [setLinks]);
+  // const getLinksFromlocalStorage = useCallback(() => {
+  //   const storedLinks = localStorage.getItem("links");
+  //   if (storedLinks) {
+  //     setLinks(JSON.parse(storedLinks));
+  //   } else {
+  //     localStorage.removeItem("links");
+  //   }
+  // }, [setLinks]);
 
-  useEffect(() => {
-    getLinksFromlocalStorage();
-  }, [getLinksFromlocalStorage]);
+  // useEffect(() => {
+  //   getLinksFromlocalStorage();
+  // }, [getLinksFromlocalStorage]);
 
   return (
     <div className="w-full bg-[#FAFAFA] px-6 pb-6 sm:px-4 sm:pb-4">

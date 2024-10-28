@@ -1,45 +1,34 @@
 "use client"
 
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from "react";
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { auth } from '../firebase/config'
-import { signIn } from 'next-auth/react'
-
-const CreateAccount = async (email: string, password: string) => {
-  try {
-    const result = await signIn('credentials', {
-      redirect: false,
-      email,
-      password,
-      action: 'signup'
-    })
-
-    if (result?.error) {
-      throw new Error(result.error)
-    } else {
-      window.location.href = '/Home'
-    }
-  } catch (error) {
-    console.error('Error creating account:', error)
-    throw error
-  }
-}
+import Loader from '../../components/common/loader';
+import Modal from '../../components/common/modal';
+import { auth } from '../../firebase/config';
 
 export default function CreateAcc() {
-  const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth)
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmpassword, setConfirmpassword] = useState('')
-  const [showpassword, setShowPassword] = useState(false)
-
   type validationError = {
     email?: string
     password?: string
     confirmpassword?: string
   }
+  type ModalMessage = {
+    show: boolean;
+    message: string;
+  }
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmpassword, setConfirmpassword] = useState('')
+  const [showpassword, setShowPassword] = useState(false)
   const [errors, setErrors] = useState<validationError>({})
+  const [loading, setLoading] = useState(false)
+  const [accountInfo, setAccountInfo] = useState<ModalMessage>({
+    show: false,
+    message: ''
+  })
+  const router = useRouter()
 
   useEffect(() => {
     if (password.length >= 8) {
@@ -47,36 +36,60 @@ export default function CreateAcc() {
     }
   }, [password])
 
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = () => {
     if (errors.email) {
       setErrors((prevErrors) => ({ prevErrors, email: undefined }))
     }
   }
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = () => {
     if (errors.password) {
       setErrors((prevErrors) => ({ prevErrors, password: undefined }))
     }
   }
 
-  const handleCreateAccount = async () => {
-    try {
-      const res = await createUserWithEmailAndPassword(email, password)
-      setEmail('')
-      setPassword('')
-      await CreateAccount(email, password)
-      // Redirect to home page or dashboard after successful signup and auto login
-    } catch (e) {
-      console.error(e)
-      Response.json({ Error: 'Internal Server Error' }, { status: 500 })
-    }
-  }
-
-  const handleConfirmPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleConfirmPasswordChange = () => {
     if (errors.confirmpassword) {
       setErrors((prevErrors) => ({ prevErrors, confirmpassword: undefined }))
     }
   }
+
+  const handleCreateAccount = async () => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      const user = userCredential.user
+      await sendEmailVerification(user)
+
+      localStorage.setItem("userCredentials", JSON.stringify([email, password]))
+
+      setEmail('')
+      setPassword('')
+      setConfirmpassword('')
+      setLoading(true)
+      router.push('/Home')
+    } catch (e) {
+      setAccountInfo({
+        show: true,
+        message: 'Account has already been created'
+      })
+      Response.json({ Error: 'Internal Server Error' }, { status: 500 })
+    }
+  }
+
+  useEffect(() => {
+    if (!accountInfo.show) return;
+
+    const timeoutId = setTimeout(() => {
+      setAccountInfo({
+        show: false,
+        message: ''
+      });
+    }, 4000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [accountInfo.show]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -111,9 +124,12 @@ export default function CreateAcc() {
     if (!valid) {
       setErrors(newError)
     } else {
-      handleCreateAccount()
+      router.push('/Home')
+      // handleCreateAccount()
     }
   }
+
+  if (loading) return <Loader />
 
   return (
     <div className="bg-[#FAFAFA] sm:h-[100svh]">
@@ -218,10 +234,20 @@ export default function CreateAcc() {
 
               <button
                 type="submit"
+                disabled={loading}
                 className="active:shadow-custom-focus active:opacity-50 focus:outline-none cursor-pointer rounded-[8px] bg-[#633CFF] py-[11px] px-[27px] w-full text-[16px] font-[600] text-white"
-              >Create new account</button>
+              >
+                Create new account
+              </button>
             </form>
             <p className="text-center flex sm:flex-col flex-row justify-center sm:gap-0 gap-1.5">Already have an account? <Link className="text-[#633CFF]" href='/'>Login</Link></p>
+
+            {accountInfo.show && <Modal>
+              <div className="flex">
+                <p className="sm:text-[12px] sm:text-center text-base">{accountInfo.message}</p>
+              </div>
+            </Modal>}
+
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../../../src/app/firebase/config'
+import { auth } from '../../../src/firebase/config'
 
 import { DefaultSession, DefaultUser } from "next-auth"
 import { JWT } from "next-auth/jwt"
